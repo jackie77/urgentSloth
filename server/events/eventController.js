@@ -86,35 +86,35 @@ module.exports = {
     var fbId = req.params.fbId.slice(1);
     
     findUser({fbId: fbId})
-      .then(function (user) {
-        if (!user) {
-          res.send(404);
-        } else {
-          var userEvents = user.events;
-          findAllEvents({'_id': {$in: userEvents}})
-            .then(function(events){
-              var counter = 0;
-              if(!events.length){
-                res.json([]); //Send back empty array
-              } else {
-                events.forEach(function(event,index){
-                  var userIds = event.users;
-                  getAllUsers({'fbId': {$in: userIds}})
-                    .then(function(users){
-                      event.users = users;
-                      counter++;
-                      if(counter === events.length){
-                        res.json(events);
-                      }
-                    });
-                });
-              }
-            })
-        }
-      })
-      .fail(function (error) {
-        next(error);
-      });
+    .then(function (user) {
+      if (!user) {
+        res.send(404);
+      } else {
+        var userEvents = user.events;
+        return findAllEvents({'_id': {$in: userEvents}})
+      }
+    })
+    .then(function (events) {
+      if(!events.length){
+        res.json([]); //Send back empty array
+      } else {
+        var counter = 0;
+        events.forEach(function(event,index){
+          var userIds = event.users;
+          getAllUsers({'fbId': {$in: userIds}})
+          .then(function(users){
+            event.users = users;
+            counter++;
+            if(counter === events.length){
+              res.json(events);
+            }
+          });
+        });
+      }
+    })
+    .fail(function (error) {
+      next(error);
+    });
   }, 
 
   decideUsersEvents: function(fbId){
