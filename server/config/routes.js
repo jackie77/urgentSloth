@@ -20,6 +20,8 @@ module.exports = function(app) {
 
   app.post('/api/users', UserController.createOrFindOne);
 
+  app.post('/api/users/notify', UserController.notifyUser);
+  
   //event routes
   app.get('/api/events', EventController.allEvents);
 
@@ -30,7 +32,6 @@ module.exports = function(app) {
   app.post('/api/events', EventController.newEvent);
 
   app.post('/api/events/submit', EventController.submitEventVotes);
-
 
   // route to handle creating goes here (app.post)
   // route to handle delete goes here (app.delete)

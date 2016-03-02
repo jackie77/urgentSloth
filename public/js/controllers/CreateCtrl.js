@@ -100,6 +100,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   };
 
   $scope.submitEvent = function(){
+    
     var eventValidation = {};
     //Check if event name is present
     if(!$scope.eventName){
@@ -130,12 +131,28 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     var errArr = Object.keys(eventValidation);
     if(errArr.length){
       $scope.validationMessage = errArr.map(function(key){
-        return eventValidation[key] 
+        return eventValidation[key];
       }).join('\n');
 
       $scope.showValidationMessage = true;
       return;
-    };
+    }
+
+
+
+    var emails = [];
+    var ids = Object.keys($scope.attendees);
+
+    for(var i = 0; i < ids.length; i++){
+      var id = ids[i].toString();
+
+      User.getFriends(id)
+      .then(function(foundUser){
+        emails.push(foundUser[0]);
+      });
+    }
+    //send notification to users 
+    // User.notifyUser();
 
     $scope.showValidationMessage = false;
     var event = {};
@@ -159,9 +176,10 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     //Add logged in user
     event.users.push($cookies.get('fbId'));
-
+ 
     Event.create(event).then(function(){
       $location.path("/events");
-    })
+    });
   };
+
 })
