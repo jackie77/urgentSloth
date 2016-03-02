@@ -47,18 +47,16 @@ module.exports = function(app) {
     passport.authenticate('facebook', {scope: ['user_friends']}));
 
   app.get('/login/facebook/return', 
-    passport.authenticate('facebook', { failureRedirect: '/' }),
-    function(req, res) {
-      //check users events and decide any passed deadline
-      EventController.decideUsersEvents(req.user.id);
-
-      //send cookie so client side has user info
-      res.cookie('name',req.user.displayName);
-      res.cookie('fbId',req.user.id);
-      res.cookie('picture',req.user.photos[0].value);
-      res.redirect('/#events');
-
-    });
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    //check users events and decide any passed deadline
+    EventController.decideUsersEvents(req.user.id);
+    //send cookie so client side has user info
+    res.cookie('name',req.user.displayName);
+    res.cookie('fbId',req.user.id);
+    res.cookie('picture',req.user.photos[0].value);
+    res.redirect('/#events');
+  });
 
 
   app.get('/login',function(req, res){
