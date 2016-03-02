@@ -28,37 +28,39 @@ module.exports = {
     var eventId = req.body.fbId;
 
     findUser({fbId: fbId})
-      .then(function (user) {
-        if (user) {
-          var eventIndex = user.events.indexOf(eventId);
-          user.events.splice(eventIndex,1);
-          user.save(function(err) {
-            if (err) {
-              console.error(err);
-            }
-          });
+    .then(function (user) {
+      if (user) {
+        var eventIndex = user.events.indexOf(eventId);
+        user.events.splice(eventIndex,1);
+        user.save(function(err) {
+          if (err) {
+            console.error(err);
+          }
+        });
 
-        } else {
-          console.error('Error finding user');
-        }
-      });
+      } else {
+        console.error('Error finding user');
+      }
+    });
   },
 
   getUsers: function (req, res) {
     getAllUsers({})
-      .then(function (users) {
-        if (users) {
-          res.send(users);
-        } else {
-          console.error('Error finding users');
-        }
-      });
+    .then(function (users) {
+      if (users) {
+        res.send(users);
+      } else {
+        console.error('Error finding users');
+      }
+    });
   },
 
   getUserFriends: function (req, res) {
     var id = req.params.fbId.slice(1);
+
     findUser({fbId: id})
     .then(function (user) {
+<<<<<<< 64476cc00f97c320680101ca31794c1a32dfac79
       return passportFacebook.FBExtension.friendsUsingApp(id, user.accessToken);
     })
     .then(function (friends) {
@@ -75,6 +77,20 @@ module.exports = {
     .catch(function (error) {
         console.log('userController: Error retrieving friends');
         res.send(404);
+=======
+      if(user !== null){
+        var friendArray = user.friends.map(function(friend) {
+          return friend.fbId;
+        });
+        getAllUsers({'fbId': {$in: friendArray}})
+        .then(function(friends) {
+          res.send(friends);
+        });
+      } else{
+        console.log('userController: Error retrieving friends');
+        res.send(404);
+      }
+>>>>>>> Notifications are working with postman. Need to get access to email addresses on front-end
     });
   },
   
@@ -93,15 +109,17 @@ module.exports = {
   },
 
   createOrFindOne: function (profile) {
+
     var fbId = profile.id;
     var name = profile.displayName;
     var picture = profile.photos[0].value;
     var accessToken = profile.accessToken;
     var friends = profile._json.friends.data.map(function(friend) {
-      return {fbId: friend.id}; 
+      return {fbId: friend.id};
     });
 
       findUser({fbId: fbId})
+<<<<<<< 64476cc00f97c320680101ca31794c1a32dfac79
         .then(function (match) {
           //if there's no match, we want to create a new user 
           if (match === null) {
@@ -128,18 +146,45 @@ module.exports = {
           console.log('createOrFind user Error',error);
           next(error);
         });
+=======
+      .then(function (match) {
+        //if there's no match, we want to create a new user 
+        if (match === null) {
+          var newUser = {
+            name: name,
+            fbId: fbId,
+            picture: picture,
+            friends: friends
+          };
+          createUser(newUser);
+        } else {// if user already exists, update user's friends and prof pic in the database
+          match.friends = friends;
+          match.picture = picture;
+          match.save(function (err) {
+              if (err){
+                return handleError(err);
+              }
+            });
+        }
+      })
+      .fail(function (error) {
+        console.log('createOrFind user Error',error);
+        next(error);
+      });
+>>>>>>> Notifications are working with postman. Need to get access to email addresses on front-end
   },
 
   notifyUser : function(req, res){
-
     var emailAddresses = req.body.emailAddresses.join(', ');
+    var messageText = ['Salutations Valuable Human!', '\n', 'You have been invited to ', req.body.eventName].join('');
+
     // setup e-mail data 
     var mailOptions = {
-        from: 'When & Where 👥 <notifications@when&where.com>', // sender address 
-        to: emailAddresses, // list of receivers 
-        subject: 'Attention!', // Subject line 
-        text: 'MUCH <3!!!!!', // plaintext body 
-        html: '<b>MUCH <3!!!!!</b>' // html body 
+      from: 'When & Where  <notifications@when&where.com>', // sender address 
+      to: emailAddresses, // list of receivers 
+      subject: 'You are cordially invited...', // Subject line 
+      text: 'messageText', // plaintext body 
+      html: messageText // html body 
     };
 
     transporter.sendMail(mailOptions, function(err, info){
@@ -154,5 +199,4 @@ module.exports = {
 
 
 
-var emailText = ['Salutations Valuable Human!', '\n']
 
