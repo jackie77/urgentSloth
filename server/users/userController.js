@@ -1,10 +1,7 @@
 var User = require('./userModel.js');
 var Q = require('q');
-<<<<<<< 0dc4ecfb0f77d5dce81a1f518be5ae807641638f
 var passportFacebook = require('./../utils/passport-facebook');
-=======
 var nodemailer = require('nodemailer');
->>>>>>> Basic emailNotifications are working. Need to connect to the front end and use real content
 
 // Promisify a few mongoose methods with the `q` promise library
 var getAllUsers = Q.nbind(User.find, User);
@@ -60,7 +57,6 @@ module.exports = {
 
     findUser({fbId: id})
     .then(function (user) {
-<<<<<<< 64476cc00f97c320680101ca31794c1a32dfac79
       return passportFacebook.FBExtension.friendsUsingApp(id, user.accessToken);
     })
     .then(function (friends) {
@@ -77,20 +73,6 @@ module.exports = {
     .catch(function (error) {
         console.log('userController: Error retrieving friends');
         res.send(404);
-=======
-      if(user !== null){
-        var friendArray = user.friends.map(function(friend) {
-          return friend.fbId;
-        });
-        getAllUsers({'fbId': {$in: friendArray}})
-        .then(function(friends) {
-          res.send(friends);
-        });
-      } else{
-        console.log('userController: Error retrieving friends');
-        res.send(404);
-      }
->>>>>>> Notifications are working with postman. Need to get access to email addresses on front-end
     });
   },
   
@@ -119,34 +101,6 @@ module.exports = {
     });
 
       findUser({fbId: fbId})
-<<<<<<< 64476cc00f97c320680101ca31794c1a32dfac79
-        .then(function (match) {
-          //if there's no match, we want to create a new user 
-          if (match === null) {
-            var newUser = {
-              name: name,
-              fbId: fbId,
-              picture: picture,
-              friends: friends,
-              accessToken: accessToken
-            };
-            createUser(newUser);
-          } else {// if user already exists, update user's friends and prof pic in the database
-            match.friends = friends;
-            match.picture = picture;
-            match.accessToken = accessToken;
-            match.save(function (err) {
-                if (err){
-                  return handleError(err);
-                }
-              });
-          }
-        })
-        .fail(function (error) {
-          console.log('createOrFind user Error',error);
-          next(error);
-        });
-=======
       .then(function (match) {
         //if there's no match, we want to create a new user 
         if (match === null) {
@@ -171,7 +125,6 @@ module.exports = {
         console.log('createOrFind user Error',error);
         next(error);
       });
->>>>>>> Notifications are working with postman. Need to get access to email addresses on front-end
   },
 
   notifyUser : function(req, res){

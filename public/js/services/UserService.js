@@ -35,7 +35,7 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
  
       //should change name of this....
       delete : function(id) {
-        return $http.delete('/apis/users/' + id);
+        return $http.delete('/api/users/' + id);
       },
 
       removeEvent : function(fbId, eventID) {

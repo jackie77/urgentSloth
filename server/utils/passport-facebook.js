@@ -22,6 +22,7 @@ passport.use(new Strategy({
   profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends']
 },
 function(accessToken, refreshToken, profile, cb) {
+
   //call a function which checks if user is in db
   profile.accessToken = accessToken;
   userController.createOrFindOne(profile);
