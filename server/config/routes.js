@@ -50,8 +50,6 @@ module.exports = function(app) {
   app.get('/login/facebook/return', 
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    //check users events and decide any passed deadline
-    EventController.decideUsersEvents(req.user.id);
     //send cookie so client side has user info
     res.cookie('name',req.user.displayName);
     res.cookie('fbId',req.user.id);

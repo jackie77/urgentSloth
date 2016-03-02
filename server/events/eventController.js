@@ -7,6 +7,7 @@ var Event = require('./eventModel.js');
 var findEvent = Q.nbind(Event.findOne, Event);
 var createEvent = Q.nbind(Event.create, Event);
 var findAllEvents = Q.nbind(Event.find, Event);
+var updateEvent = Q.nbind(Event.update, Event);
 
 var findUser = Q.nbind(User.findOne, User);
 var getAllUsers = Q.nbind(User.find, User);
@@ -27,6 +28,11 @@ var makeEventDecision = function(event){
   var date = pickWinner(event['dates'], 'date');
   var location = pickWinner(event['locations'],'location');
   return {date: date, location: location};
+}
+
+var updateEventDecision = function(event) {
+  var decision = makeEventDecision(event);
+  return updateEvent({_id: event._id}, {decision: decision});
 }
 
 module.exports = {
@@ -86,63 +92,50 @@ module.exports = {
     var fbId = req.params.fbId.slice(1);
     
     findUser({fbId: fbId})
-      .then(function (user) {
-        if (!user) {
-          res.send(404);
-        } else {
-          var userEvents = user.events;
-          findAllEvents({'_id': {$in: userEvents}})
-            .then(function(events){
-              var counter = 0;
-              if(!events.length){
-                res.json([]); //Send back empty array
-              } else {
-                events.forEach(function(event,index){
-                  var userIds = event.users;
-                  getAllUsers({'fbId': {$in: userIds}})
-                    .then(function(users){
-                      event.users = users;
-                      counter++;
-                      if(counter === events.length){
-                        res.json(events);
-                      }
-                    });
-                });
-              }
-            })
-        }
-      })
-      .fail(function (error) {
-        next(error);
-      });
-  }, 
-
-  decideUsersEvents: function(fbId){
-    findUser({fbId: fbId})
-      .then(function (user) {
-        if (!user) {
-          console.log('user not found');
-        } else {
-          var userEvents = user.events;
-          findAllEvents({'_id': {$in: userEvents}})
-            .then(function(events){
-              events.forEach(function(event){
-                //if the event's deadline has passed and it doesn't have a decision, decide it
-                if(event.deadline < new Date() && event.decision === undefined){
-                  var decision = makeEventDecision(event);
-                  Event.update({_id: event._id}, {decision: decision}, function (err, savedEvent) {
-                      if (err) {
-                        console.error(err);
-                      } 
-                    });
+    .then(function (user) {
+      if (!user) {
+        res.send(404);
+      } else {
+        var userEvents = user.events;
+        return findAllEvents({'_id': {$in: userEvents}})
+      }
+    })
+    .then(function (events) {
+      if(!events.length){
+        res.json([]); //Send back empty array
+      } else {
+        var counter = 0;
+        events.forEach(function(event,index){
+          if ((event.deadline < new Date() || event.users.length === event.usersWhoSubmitted.length) && event.decision === undefined) {
+            updateEventDecision(event)
+            .then(function (event) {
+              var userIds = event.users;
+              getAllUsers({'fbId': {$in: userIds}})
+              .then(function(users){
+                event.users = users;
+                counter++;
+                if(counter === events.length){
+                  res.json(events);
                 }
               });
             })
-        }
-      })
-      .fail(function (error) {
-        next(error);
-      });
+          } else {
+            var userIds = event.users;
+            getAllUsers({'fbId': {$in: userIds}})
+            .then(function(users){
+              event.users = users;
+              counter++;
+              if(counter === events.length){
+                res.json(events);
+              }
+            });
+          }
+        });
+      }
+    })
+    .fail(function (error) {
+      next(error);
+    });
   },
 
   submitEventVotes: function(req, res, next){
@@ -184,6 +177,4 @@ module.exports = {
       }
     });
   }
-
-
 };

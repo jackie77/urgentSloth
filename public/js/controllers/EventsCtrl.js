@@ -16,40 +16,46 @@ angular.module('EventsCtrl', [])
   };
 
   var getUserEvents = function(){
-    Event.getUserEvents($cookies.get('fbId'))
-      .then(function(events) {
-        var userFbId = $cookies.get('fbId');
-        
-        //Events page only includes future events
-        $scope.data.decidedEvents = events.filter(function(event){
-          return event.decision && new Date(event.decision.date) > Date.now();
-        });
+    var userFbId = $cookies.get('fbId');
 
-        $scope.data.submittedEvents = events.filter(function(event){
-          return event.usersWhoSubmitted.indexOf(userFbId) !== -1 && (!event.decision || new Date(event.decision.date) > Date.now());
-        });
-
-        $scope.data.notVotedEvents = events.filter(function(event){
-          return event.usersWhoSubmitted.indexOf(userFbId) == -1 && !event.decision;
-        });
-
-        if(!$scope.data.decidedEvents.length && !$scope.data.submittedEvents.length && !$scope.data.notVotedEvents.length){
-          $scope.showNoEventsMessage = true;
-        } else {
-          $scope.showNoEventsMessage = false;
-        };
-
-        //Past events page only includes past events
-        $scope.data.pastEvents = events.filter(function(event){
-          return event.decision && new Date(event.decision.date) < Date.now();
-        });
-        $scope.data.pastEvents.sort(function(a,b){
-          return new Date(b.decision.date) - new Date(a.decision.date);
-        });
-      })
-      .catch(function (error) {
-        console.error(error);
+    Event.getUserEvents(userFbId)
+    .then(function (events) {
+      
+      //Events page only includes future events
+      $scope.data.decidedEvents = events.filter(function(event){
+        var isFutureEvent = new Date(event.deadline) > Date.now();
+        var isVoted = event.usersWhoSubmitted.length === event.users.length;
+        return (event.decision || isVoted) && isFutureEvent;
       });
+
+      $scope.data.submittedEvents = events.filter(function(event){
+        var isFutureEvent = new Date(event.deadline) > Date.now();
+        var isNotVoted = event.usersWhoSubmitted.length !== event.users.length;
+        return event.usersWhoSubmitted.indexOf(userFbId) !== -1 && (!event.decision || isFutureEvent) && isNotVoted;
+      });
+
+      $scope.data.notVotedEvents = events.filter(function(event){
+        var isNotVoted = event.usersWhoSubmitted.length !== event.users.length;
+        return event.usersWhoSubmitted.indexOf(userFbId) == -1 && !event.decision && isNotVoted;
+      });
+
+      if(!$scope.data.decidedEvents.length && !$scope.data.submittedEvents.length && !$scope.data.notVotedEvents.length){
+        $scope.showNoEventsMessage = true;
+      } else {
+        $scope.showNoEventsMessage = false;
+      };
+
+      //Past events page only includes past events
+      $scope.data.pastEvents = events.filter(function(event){
+        return event.decision && new Date(event.decision.date) < Date.now();
+      });
+      $scope.data.pastEvents.sort(function(a,b){
+        return new Date(b.decision.date) - new Date(a.decision.date);
+      });
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   }
 
   //we want to get the user's events when the controller first loads
