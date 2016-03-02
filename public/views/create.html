@@ -1,16 +1,13 @@
 <div>
-  
+  <!-- the whole user input form starts here -->
   <div class="event create">
      <h2>Name your event:</h2>
     <input type="text" class="form-control eventname text-center" ng-model="eventName" placeholder="Name it and they will come...">
-  </div>
-
-  <div class="event create">
+  
     <h2>Invite some friends:</h2>
     <!-- Dynamic search form for friends -->
     <form>
       <fieldset class="form-group">
-        <!-- <label for="friendSearch">Find friends:</label> -->
         <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter friends by name"/>
       </fieldset>
     </form>
@@ -41,11 +38,7 @@
         </div>
       </div>
     </div>
-  </div>
 
-<!-- the whole user input form starts here -->
-<div>
-<div class="event create">
     <form role="form" ng-submit="addDateTimes()">
       <div class="form-group">
         <label for="Date">Pick a date</label>
