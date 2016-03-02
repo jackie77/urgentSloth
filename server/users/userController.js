@@ -1,5 +1,6 @@
 var User = require('./userModel.js');
-    Q = require('q');
+var Q = require('q');
+var passportFacebook = require('./../utils/passport-facebook');
 
 // Promisify a few mongoose methods with the `q` promise library
 var getAllUsers = Q.nbind(User.find, User);
@@ -42,20 +43,24 @@ module.exports = {
   getUserFriends: function (req, res) {
     var id = req.params.fbId.slice(1);
     findUser({fbId: id})
-        .then(function (user) {
-          if(user !== null){
-            var friendArray = user.friends.map(function(friend) {
-              return friend.fbId;
-            });
-            getAllUsers({'fbId': {$in: friendArray}})
-              .then(function(friends) {
-                res.send(friends);
-              });
-          } else{
-            console.log('userController: Error retrieving friends');
-            res.send(404);
-          }
-        });
+    .then(function (user) {
+      return passportFacebook.FBExtension.friendsUsingApp(id, user.accessToken);
+    })
+    .then(function (friends) {
+      return friendArray = friends.map(function (friend) {
+        return friend.id;
+      });
+    })
+    .then(function (friendsArray) {
+      getAllUsers({'fbId': {$in: friendArray}})
+      .then(function (friends) {
+        res.send(friends);
+      });
+    })
+    .catch(function (error) {
+        console.log('userController: Error retrieving friends');
+        res.send(404);
+    });
   },
   
   addEventToUsers: function (usersArray, eventId) {
@@ -76,6 +81,7 @@ module.exports = {
     var fbId = profile.id;
     var name = profile.displayName;
     var picture = profile.photos[0].value;
+    var accessToken = profile.accessToken;
     var friends = profile._json.friends.data.map(function(friend) {
       return {fbId: friend.id}; 
     });
@@ -88,12 +94,14 @@ module.exports = {
               name: name,
               fbId: fbId,
               picture: picture,
-              friends: friends
+              friends: friends,
+              accessToken: accessToken
             };
             createUser(newUser);
           } else {// if user already exists, update user's friends and prof pic in the database
             match.friends = friends;
             match.picture = picture;
+            match.accessToken = accessToken;
             match.save(function (err) {
                 if (err){
                   return handleError(err);
