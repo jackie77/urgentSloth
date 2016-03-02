@@ -1,11 +1,25 @@
 var User = require('./userModel.js');
 var Q = require('q');
+<<<<<<< 0dc4ecfb0f77d5dce81a1f518be5ae807641638f
 var passportFacebook = require('./../utils/passport-facebook');
+=======
+var nodemailer = require('nodemailer');
+>>>>>>> Basic emailNotifications are working. Need to connect to the front end and use real content
 
 // Promisify a few mongoose methods with the `q` promise library
 var getAllUsers = Q.nbind(User.find, User);
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
+
+//creates reusable transporter object using default SMTP transport
+var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'alexanderanthony813',
+            pass: 'cjshghqvdxnmpsxy'
+        }
+    });
+
 
 module.exports = {
 
@@ -19,10 +33,11 @@ module.exports = {
           var eventIndex = user.events.indexOf(eventId);
           user.events.splice(eventIndex,1);
           user.save(function(err) {
-                      if (err) {
-                        console.error(err);
-                      } 
-                    });
+            if (err) {
+              console.error(err);
+            }
+          });
+
         } else {
           console.error('Error finding user');
         }
@@ -105,7 +120,7 @@ module.exports = {
             match.save(function (err) {
                 if (err){
                   return handleError(err);
-                } 
+                }
               });
           }
         })
@@ -113,6 +128,31 @@ module.exports = {
           console.log('createOrFind user Error',error);
           next(error);
         });
-    }
+  },
+
+  notifyUser : function(req, res){
+
+    var emailAddresses = req.body.emailAddresses.join(', ');
+    // setup e-mail data 
+    var mailOptions = {
+        from: 'When & Where 👥 <notifications@when&where.com>', // sender address 
+        to: emailAddresses, // list of receivers 
+        subject: 'Attention!', // Subject line 
+        text: 'MUCH <3!!!!!', // plaintext body 
+        html: '<b>MUCH <3!!!!!</b>' // html body 
+    };
+
+    transporter.sendMail(mailOptions, function(err, info){
+      if(err){
+        return console.error(err);
+      }
+      res.json('Message sent: ' + info.response);
+    });
+  }
 
 };
+
+
+
+var emailText = ['Salutations Valuable Human!', '\n']
+
