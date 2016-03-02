@@ -148,9 +148,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
       User.getFriends(id)
       .then(function(foundUser){
-        console.log(typeof foundUser);
         emails.push(foundUser[0]);
-        console.log('emails>>', emails);
       });
     }
     //send notification to users 
