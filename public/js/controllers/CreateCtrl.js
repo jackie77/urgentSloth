@@ -65,6 +65,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
   $scope.addDateTimes = function(){
     var dateTime = new Date(1*$scope.date + 1*$scope.time-8*3600*1000);
+
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
       return;
@@ -142,25 +143,19 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     var emails = [];
     
-    console.log('scope attendees>>',$scope.attendees);
-    //WHY IS THIS NOT WORKING. only has creator....
     var ids = Object.keys($scope.attendees);
 
     for(var i = 0; i < ids.length; i++){
       var fbId = ids[i].toString();
-      console.log('alex id>>', fbId);
 
       //not get friends. need to get one user object.
       User.getUser(fbId)
       .then(function(foundUser){
-        console.log('foundUser>>>', foundUser);
         emails.push(foundUser.email);
 
         if(i === ids.length){
-          console.log('emails>>>',emails);
           User.notifyUser(emails);
         }
-
       });
     }
 

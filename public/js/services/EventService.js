@@ -48,7 +48,6 @@ angular.module('EventService', [])
     },
 
     update : function (event) {
-      console.log(event._id);
       return $http.put('/api/events/' + event._id);
     },
 
