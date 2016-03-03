@@ -1,7 +1,6 @@
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 var PassportFacebookExtension = require('passport-facebook-extension');
-
 //need to include this to add user to db
 var userController = require('./../users/userController');
 
@@ -19,7 +18,7 @@ passport.use(new Strategy({
   clientID: process.env.FACEBOOK_APP_ID || '1695145560770344',
   clientSecret: process.env.FACEBOOK_SECRET || '6da4819c4f7124defe1035c55c6682bf',
   callbackURL: '/login/facebook/return',
-  profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends']
+  profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends', 'emails']
 },
 function(accessToken, refreshToken, profile, cb) {
 

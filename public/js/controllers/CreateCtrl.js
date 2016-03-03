@@ -31,7 +31,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
   $scope.addFriend = function(friend){
     $scope.showLonelyMessage = false;
-    $scope.attendees[friend.fbId] = friend;
+    $scope.attendees[friend.fbId] = friend; 
   };
 
   $scope.removeFriend = function(friend){
@@ -65,6 +65,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
   $scope.addDateTimes = function(){
     var dateTime = new Date(1*$scope.date + 1*$scope.time-8*3600*1000);
+
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
       return;
@@ -129,6 +130,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     //Check if any of the above failed
     var errArr = Object.keys(eventValidation);
+    
     if(errArr.length){
       $scope.validationMessage = errArr.map(function(key){
         return eventValidation[key];
@@ -138,22 +140,25 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
       return;
     }
 
-
-
     var emails = [];
+    
     var ids = Object.keys($scope.attendees);
 
     for(var i = 0; i < ids.length; i++){
-      var id = ids[i].toString();
+      var fbId = ids[i].toString();
 
-      User.getFriends(id)
+      //not get friends. need to get one user object.
+      User.getUser(fbId)
       .then(function(foundUser){
-        emails.push(foundUser[0]);
+        emails.push(foundUser.email);
+
+        if(i === ids.length){
+          User.notifyUser(emails);
+        }
       });
     }
-    //send notification to users 
-    // User.notifyUser();
 
+    //send notification to users 
     $scope.showValidationMessage = false;
     var event = {};
     event.name = $scope.eventName;

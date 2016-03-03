@@ -3,25 +3,23 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
 
   return {
 
-
       get : function() {
         return $http({
           method: 'GET',
           url: '/api/users/'
         }).then(function(res){
           return res.data;
-        })
+        });
       },
 
       getFriends: function(fbId){
         return $http({
             method: 'GET',
-            url: '/api/users/:' + fbId 
+            url: '/api/users/:' + fbId
           }).then(function(res){
-            console.log('res.data>>>', res.data);
             return res.data;
           }).catch(function(err){
-            console.log(err);
+            console.error(err);
         });
       },
 
@@ -57,6 +55,16 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
             emailAddresses : emails,
             eventName : event
           }
+        });
+      },
+
+      getUser : function(fbId){
+        return $http({
+          method: 'GET',
+          url: '/api/user/:' + fbId
+        })
+        .then(function(res){
+           return res.data;
         });
       }
 
