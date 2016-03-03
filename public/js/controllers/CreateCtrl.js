@@ -27,7 +27,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   $scope.dateTimes = {};
   $scope.decideByTime = [];
 
-  $scope.lonelyMessage = "...There's nothing quite like sharing a meal with someone you love - yourself...";
+  $scope.lonelyMessage = "click on friends to invite them";
   $scope.showLonelyMessage = true;
   $scope.noLocationsMessage = '“When you make a choice, you change the future.” - Deepak Chopra';
   $scope.showNoLocationsMessage = true;
