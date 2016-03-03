@@ -14,14 +14,14 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
       },
 
       getFriends: function(fbId){
+
         return $http({
             method: 'GET',
-            url: '/api/users/:' + fbId 
+            url: '/api/users/:' + fbId
           }).then(function(res){
-            console.log('res.data>>>', res.data);
             return res.data;
           }).catch(function(err){
-            console.log(err);
+            console.error(err);
         });
       },
 

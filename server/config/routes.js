@@ -45,9 +45,10 @@ module.exports = function(app) {
   // route to handle all facebook passport requests
 
   app.get('/login/facebook',
-    passport.authenticate('facebook', {scope: ['user_friends']}));
+    passport.authenticate('facebook', { scope: ['email', 'user_friends']})
+    );
 
-  app.get('/login/facebook/return', 
+  app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
     //send cookie so client side has user info

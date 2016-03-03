@@ -145,9 +145,10 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     for(var i = 0; i < ids.length; i++){
       var id = ids[i].toString();
-
+      
       User.getFriends(id)
       .then(function(foundUser){
+        console.log(foundUser);
         emails.push(foundUser[0]);
       });
     }

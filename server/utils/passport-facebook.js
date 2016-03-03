@@ -1,7 +1,7 @@
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 var PassportFacebookExtension = require('passport-facebook-extension');
-
+var FB = require('fb');
 //need to include this to add user to db
 var userController = require('./../users/userController');
 
@@ -15,14 +15,29 @@ var userController = require('./../users/userController');
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 
+console.log(FB);
+
+// FB.login(function(response) {
+//     if (response.authResponse) {
+//      console.log('Welcome!  Fetching your information.... ');
+//      FB.api('/me', function(response) {
+//        console.log('Good to see you, ' + response.name + '.');
+//      });
+//     } else {
+//      console.log('User cancelled login or did not fully authorize.');
+//     }
+// }, {scope: 'email,user_likes'});
+passport.authenticate('facebook', { scope: 'email'});
+
 passport.use(new Strategy({
-  clientID: process.env.FACEBOOK_APP_ID || '1695145560770344',
-  clientSecret: process.env.FACEBOOK_SECRET || '6da4819c4f7124defe1035c55c6682bf',
+  clientID: process.env.FACEBOOK_APP_ID || '610127835807227', //1695145560770344
+  clientSecret: process.env.FACEBOOK_SECRET || 'a53563712db216f49051299ee9fda4eb',
   callbackURL: '/login/facebook/return',
-  profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends']
+  profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends', 'emails']
 },
 function(accessToken, refreshToken, profile, cb) {
-
+  console.log('>>>>>>>>>>>>>>\n',profile);
+  console.log('!!!!!\n', profile.emails[0]);
   //call a function which checks if user is in db
   profile.accessToken = accessToken;
   userController.createOrFindOne(profile);

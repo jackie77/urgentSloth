@@ -55,7 +55,7 @@ module.exports = {
   getUserFriends: function (req, res) {
     var id = req.params.fbId.slice(1);
 
-    findUser({fbId: id})
+    findUser({ fbId: id })
     .then(function (user) {
       return passportFacebook.FBExtension.friendsUsingApp(id, user.accessToken);
     })
