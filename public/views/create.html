@@ -24,6 +24,43 @@
         </div>  
       </div>
     </div>
+
+
+
+<!-- testing -->
+
+    <div ng-controller="CreateController">
+
+      <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+
+      <pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>
+
+      <div class="row"> 
+        <div class="col-xs-6">
+            Hours step is:
+          <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
+        </div>
+        <div class="col-xs-6">
+            Minutes step is:
+          <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
+        </div>
+      </div>
+
+      <hr>
+
+      <button type="button" class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>
+      <button type="button" class="btn btn-default" ng-click="update()">Set to 14:00</button>
+      <button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>
+
+    </div>
+
+<!-- end of testing -->
+
+
+
+
+
+
       
     <!-- List of attendees -->
     <div class='well well-sm'>
@@ -60,9 +97,7 @@
 
 
 
-    <!-- Decide by date -->
-  <!--   <div class="event create"><h3>Add a decide-by date</h3>
-   -->
+<!-- 
     <form role="form" ng-submit="addDecideByTime()">
       <div class="form-group">
         <label for="DecideDate">Pick a date</label>
@@ -78,7 +113,7 @@
       <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
         <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
       </a>
-    </div>
+    </div> -->
 
   <!-- Dynamic search form using YelpAPI -->
   <form role="form" ng-submit="submit()">
