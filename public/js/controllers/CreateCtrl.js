@@ -31,7 +31,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
   $scope.addFriend = function(friend){
     $scope.showLonelyMessage = false;
-    $scope.attendees[friend.fbId] = friend;
+    $scope.attendees[friend.fbId] = friend; 
   };
 
   $scope.removeFriend = function(friend){
@@ -141,20 +141,30 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
 
     var emails = [];
+    
+    console.log('scope attendees>>',$scope.attendees);
+    //WHY IS THIS NOT WORKING. only has creator....
     var ids = Object.keys($scope.attendees);
 
     for(var i = 0; i < ids.length; i++){
-      var id = ids[i].toString();
-      
-      User.getFriends(id)
+      var fbId = ids[i].toString();
+      console.log('alex id>>', fbId);
+
+      //not get friends. need to get one user object.
+      User.getUser(fbId)
       .then(function(foundUser){
-        console.log(foundUser);
-        emails.push(foundUser[0]);
+        console.log('foundUser>>>', foundUser);
+        emails.push(foundUser.email);
+
+        if(i === ids.length){
+          console.log('emails>>>',emails);
+          User.notifyUser(emails);
+        }
+
       });
     }
-    //send notification to users 
-    // User.notifyUser();
 
+    //send notification to users 
     $scope.showValidationMessage = false;
     var event = {};
     event.name = $scope.eventName;

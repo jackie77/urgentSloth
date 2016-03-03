@@ -13,6 +13,9 @@ module.exports = function(app) {
 
   //user routes 
   app.get('/api/users', UserController.getUsers);
+
+  //gets single user by Id
+  app.get('/api/user/:fbId', UserController.getUserById);
   
   app.get('/api/users/:fbId', UserController.getUserFriends);
 

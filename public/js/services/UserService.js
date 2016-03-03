@@ -10,7 +10,7 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
           url: '/api/users/'
         }).then(function(res){
           return res.data;
-        })
+        });
       },
 
       getFriends: function(fbId){
@@ -57,6 +57,16 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
             emailAddresses : emails,
             eventName : event
           }
+        });
+      },
+
+      getUser : function(fbId){
+        return $http({
+          method: 'GET',
+          url: '/api/user/:' + fbId
+        })
+        .then(function(res){
+           return res.data;
         });
       }
 

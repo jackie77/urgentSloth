@@ -19,11 +19,11 @@ angular.module('EventService', [])
     },
 
     removeUser : function(eventId, fbId) {
-        return $http({
-          method: 'POST',
-          url: '/api/events/removeUser',
-          data: { eventId: eventId, fbId: fbId }
-        })
+      return $http({
+        method: 'POST',
+        url: '/api/events/removeUser',
+        data: { eventId: eventId, fbId: fbId }
+      });
     },
 
     submitEventVotes : function(voteData) {

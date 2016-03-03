@@ -84,10 +84,10 @@ module.exports = {
           user.save(function(err) {
             if (err) {
               console.error(err);
-            } 
-          });
+            }
         });
       });
+    });
   },
 
   createOrFindOne: function (profile) {
@@ -96,6 +96,7 @@ module.exports = {
     var name = profile.displayName;
     var picture = profile.photos[0].value;
     var accessToken = profile.accessToken;
+    var email = profile.emails[0].value;
     var friends = profile._json.friends.data.map(function(friend) {
       return {fbId: friend.id};
     });
@@ -108,12 +109,16 @@ module.exports = {
             name: name,
             fbId: fbId,
             picture: picture,
-            friends: friends
+            friends: friends,
+            accessToken : accessToken,
+            email : email
           };
           createUser(newUser);
         } else {// if user already exists, update user's friends and prof pic in the database
           match.friends = friends;
           match.picture = picture;
+          match.accessToken = accessToken;
+          match.email = email;
           match.save(function (err) {
               if (err){
                 return handleError(err);
@@ -133,7 +138,7 @@ module.exports = {
 
     // setup e-mail data 
     var mailOptions = {
-      from: 'When & Where  <notifications@when&where.com>', // sender address 
+      from: 'When & Where <notifications@when&where.com>', // sender address 
       to: emailAddresses, // list of receivers 
       subject: 'You are cordially invited...', // Subject line 
       text: 'messageText', // plaintext body 
@@ -145,6 +150,23 @@ module.exports = {
         return console.error(err);
       }
       res.json('Message sent: ' + info.response);
+    });
+  },
+
+  getUserById : function(req, res){
+
+    var fbId = req.params.fbId.slice(1);
+    
+    findUser({ fbId : fbId })
+    .then(function(foundUser){
+      console.log(foundUser);
+      res.json(foundUser);
+    })
+    .fail(function(err){
+      console.log('error!');
+      if(err){
+        console.error(err);
+      }
     });
   }
 

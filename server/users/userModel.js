@@ -8,7 +8,8 @@ var userSchema = new mongoose.Schema({
   picture: String,
   events: [],
   friends: [],
-  accessToken: String
+  accessToken: String,
+  email : String
 });
 
 userSchema.methods.compareIds = function (id) {
