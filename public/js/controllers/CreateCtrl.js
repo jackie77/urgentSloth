@@ -20,15 +20,19 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     d.setHours( 14 );
     d.setMinutes( 0 );
     $scope.mytime = d;
+    $scope.newTime = $scope.mytime;
+    console.log('new time is ', $scope.newTime);
   };
-
+  // $scope.newTime;
   $scope.changed = function () {
     $log.log('Time changed to: ' + $scope.mytime);
+    $scope.newTime = $scope.mytime;
+    console.log('new time is ', $scope.newTime);
   };
 
-  $scope.clear = function() {
-    $scope.mytime = null;
-  };
+  // $scope.clear = function() {
+  //   $scope.mytime = null;
+  // };
 
 
   $scope.friends = []; //List of all users
@@ -95,13 +99,26 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   };
 
   $scope.addDateTimes = function(){
-    var dateTime = new Date(1*$scope.date + 1*$scope.time-8*3600*1000);
+    // $scope.mytime.setFullYear(1970);
+    console.log('scope.mytime  at line 103', $scope.mytime);
+    // $scope.mytime.setMonth(0);
+    // $scope.mytime.setDate(1);
+    var dateTime = new Date(1*$scope.date + 1*$scope.mytime-8*3600*1000);
+
+    // console.log($scope.time, 'input time');
+    // console.log(dateTime, 'current time');
+
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
       return;
     } else {
       $scope.showDateTimeMessage = false;
     }
+
+    // console.log($scope.time, 'scope time');
+    // console.log($scope.mytime, 'mytime');
+    // console.log(dateTime, 'before');
+
     $scope.dateTimes[dateTime] = dateTime;
   };
 
@@ -110,9 +127,18 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   };
 
   $scope.addDecideByTime = function(){
+    console.log('inside addDecideByTime');
+          console.log($scope.decideTime, 'time old!!!');
+    //console.log($scope.decideDate, 'date !!!')
+    //console.log($scope.decideTime * 1000);
+    
+    console.log($scope.mytime, 'time new !!!');
+
     //Allow only one decideBy time
     if(!$scope.decideByTime.length){
+
       var decideBy = new Date(1*$scope.decideDate + 1*$scope.decideTime-8*3600*1000);
+      console.log(decideBy);
       var minDateAndTime = Math.min.apply(null, Object.keys($scope.dateTimes).map(function(key){
         return 1*$scope.dateTimes[key]
       }));
@@ -123,11 +149,13 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
         $scope.showDecideByMessage = false;
       }
       $scope.decideByTime.push(decideBy);
+      console.log(decideBy);
     }
   };
 
   $scope.removeDecideBy = function(){
     $scope.decideByTime.pop();
+    console.log($scope.decideByTime, 'decideByTime');
   };
 
   $scope.submitEvent = function(){
