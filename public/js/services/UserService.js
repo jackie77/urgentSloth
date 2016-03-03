@@ -3,7 +3,6 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
 
   return {
 
-
       get : function() {
         return $http({
           method: 'GET',
@@ -14,7 +13,6 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
       },
 
       getFriends: function(fbId){
-
         return $http({
             method: 'GET',
             url: '/api/users/:' + fbId

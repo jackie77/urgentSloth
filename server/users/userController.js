@@ -34,7 +34,6 @@ module.exports = {
             console.error(err);
           }
         });
-
       } else {
         console.error('Error finding user');
       }
@@ -154,16 +153,13 @@ module.exports = {
   },
 
   getUserById : function(req, res){
-
     var fbId = req.params.fbId.slice(1);
     
     findUser({ fbId : fbId })
     .then(function(foundUser){
-      console.log(foundUser);
       res.json(foundUser);
     })
     .fail(function(err){
-      console.log('error!');
       if(err){
         console.error(err);
       }

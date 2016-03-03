@@ -130,6 +130,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     //Check if any of the above failed
     var errArr = Object.keys(eventValidation);
+    
     if(errArr.length){
       $scope.validationMessage = errArr.map(function(key){
         return eventValidation[key];
@@ -138,8 +139,6 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
       $scope.showValidationMessage = true;
       return;
     }
-
-
 
     var emails = [];
     
