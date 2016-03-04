@@ -145,36 +145,35 @@ module.exports = {
     var dateVotesArr = req.body.dateVotesArr;
 
     findEvent({_id: eventId})
-    .then(function(event){
-      if(event){
+    .then(function (event) {
+      //add votes to selected locations
+      locationVotesArr.forEach(function(vote, index){
+        if(vote){
+          event['locations'][index].votes += 1;
+        }
+      });
+      //add votes to selected dates
+      dateVotesArr.forEach(function(vote, index){
+        if(vote){
+          event['dates'][index].votes += 1;
+        }
+      });
 
-        //add votes to selected locations
-        locationVotesArr.forEach(function(vote, index){
-          if(vote){
-            event['locations'][index].votes += 1;
-          }
-        });
-        //add votes to selected dates
-        dateVotesArr.forEach(function(vote, index){
-          if(vote){
-            event['dates'][index].votes += 1;
-          }
-        });
-
-        //add user to list of user's who've submitted
-        event.usersWhoSubmitted.push(userFbId);
-
-        //save event
-        Event.update({_id: event._id}, {dates: event.dates, locations: event.locations, usersWhoSubmitted: event.usersWhoSubmitted} ,function (err, savedEvent) {
-          if (err) {
-            next(err);
-          } else {
-            res.send(savedEvent);
-          }
-        });
-      } else{ //if event isn't found send a 404
-        res.send(404);
+      //add user to list of user's who've submitted
+      event.usersWhoSubmitted.push(userFbId);
+      if (event.users.length === event.usersWhoSubmitted.length) {
+        event.decision = makeEventDecision(event);
       }
+
+      //save event
+      return updateEvent({_id: event._id}, {dates: event.dates, locations: event.locations, usersWhoSubmitted: event.usersWhoSubmitted, decision: event.decision});
+    })
+    .then(function (update) {
+      res.json(update);
+    })
+    .fail(function (err) {
+      res.send(404);
+      next(error);
     });
   }
 };
