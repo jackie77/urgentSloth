@@ -8,7 +8,7 @@
     <!-- Dynamic search form for friends -->
     <form>
       <fieldset class="form-group">
-        <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter friends by name"/>
+        <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter friends by name, click on friend's profile to send an invite"/>
       </fieldset>
     </form>
 
@@ -26,8 +26,8 @@
     </div>
 
     <!-- List of attendees -->
-    <div class='well well-sm'>
-      <h3 class='eventSubtitle' >INVITEES</h3>
+    <div class='well well-sm' ng-hide='showLonelyMessage'>
+      <h3 class='eventSubtitle'>INVITEES</h3>
       <div class="row text-center">
         <h3 ng-show="showLonelyMessage">{{lonelyMessage}}</h3>
         <div class="square text-center" ng-repeat="attendee in attendees" ng-click="removeFriend(attendee)">
@@ -41,12 +41,15 @@
 
     <form role="form" ng-submit="addDateTimes()">
       <div class="form-group">
-        <label for="Date">Pick a Date and Time</label><br>
+        <h2>Pick a Date and Time</h2>
+        <div class='well well-sm'>
+        <label for="Date"></label><br>
         <input type="date" id="Date" ng-model="date">
+        <b></b><br>
         <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
 
-        <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-
+        <input type="submit" value="Add" class="btn btn-primary"/>
+        </div>
         <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
       </div>
     </form>
@@ -55,14 +58,14 @@
     <div class="list-group">
       <a href="#" class="list-group-item" ng-repeat="time in dateTimes" ng-click="removeDateTime(time)">
         <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}
-        <button class="removeTimeButton btn btn-primary" ng-click="removeDateTime(time)"> Remove
+        <button class="removeTimeButton btn btn-danger" ng-click="removeDateTime(time)"> Remove
         </button>
         </h4>
       </a>
     </div>
 
     <!-- Decide by date -->
-    <div class="event create">
+    <div>
       <h3>Add a decide-by date</h3>
 
       <form role="form" ng-submit="addDecideByTime()">
@@ -85,18 +88,19 @@
       <!-- Dynamic search form using YelpAPI -->
       <form role="form" ng-submit="submit()" id="yelpSearch">
         <div class="form-group">
-          <label for="termSearch">Name of restaurant:</label>
+          <label for="termSearch">Enter the name of the restaurant:</label>
           <input type="text" class="form-control" id="termSearch" ng-model="term">
-          <label for="locationSearch">Where:</label>
+          <b></b><br>
+          <label for="locationSearch">Enter a location:</label>
           <input type="text" class="form-control" id="locationSearch" ng-model="location">
         </div>
-        <input type="submit" value="Search" class="btn btn-primary searchRestButton"/>
+        <input type="submit" value="Search" class="btn btn-primary searchRestButton" ng-click='switch()'/>
         <button type="button" class="btn btn-info searchRestButton" data-toggle="collapse" data-target="#collapse" ng-show="yelpResults.length" ng-click="toggle = !toggle">{{toggle && 'Hide' || 'Show'}} results</button>
         <img src='css/spiffy.gif' ng-show="showSpiffy">
       </form>
 
       <!-- Search results from Yelp API -->
-      <div class="well vertical collapse in" id="collapse">
+      <div class="well vertical collapse in" id="collapse" ng-show='showSearchResult'>
         <div class="row highlight" ng-repeat="restaurant in yelpResults">
 
           <div class="col-xs-1 restaurantAddButton">
@@ -119,11 +123,10 @@
         </div>
       </div>
   
-      <form role="form" ng-submit="submitEvent()">
-        <input type="submit" value="Submit" class="btn-lg btn btn-primary"/>
-
+      <form role="form" ng-submit="submitEvent()" ng-show="checkChosen">
+        
       <!-- List of locations -->
-        <div class="well well-sm">
+        <div class="well well-sm" ng-show="checkChosen">
           <h3 class='eventSubtitle'>MY PICKS</h3>
 
           <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
@@ -143,6 +146,7 @@
             </div>  
           </div>
         </div>
+        <input type="submit" value="Submit" class="btn btn-primary"/>
       </form>
     </div>
   </div>
