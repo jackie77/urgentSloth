@@ -441,6 +441,11 @@ header .mobile {
   display: none;
 }
 
+#yelpSearch {
+  margin-top: -85px;
+  padding-top: 85px;
+}
+
 /*MEDIA QUERY*/
 @media only screen and (max-width : 720px) {
 
