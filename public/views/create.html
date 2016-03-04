@@ -79,7 +79,9 @@
 
       <div class="list-group">
         <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
-          <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+          <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}
+          <button class="removeTimeButton btn btn-danger" ng-click="removeDateTime(time)">Remove</button>
+          </h4>
         </a>
       </div>
 
