@@ -92,23 +92,22 @@
   <div class="well vertical collapse in" id="collapse">
     <div class="row highlight" ng-repeat="restaurant in yelpResults">
 
-      <div class="col-xs-1">
+      <div class="col-xs-1 restaurantAddButton">
         <button type="button" class="voteButton" ng-click="addRemoveLocation(restaurant)" toggle-class="clicked">
           <span class="glyphicon glyphicon-plus"></span>
         </button>
       </div>
 
       <div class="col-xs-2">
-        <img class="restImage" src="{{restaurant.image_url}}">
-        <img class="restImage review" src="{{restaurant.rating_img_url_large}}">
+        <img class="restImage" src="{{restaurant.image_url}}" />
+        <img class="restImage review" src="{{restaurant.rating_img_url_large}}" />
         <p>{{restaurant.review_count}} reviews</p>
       </div>
 
-      <div class="col-xs-9">
-        <h3 class="card-title">{{restaurant.name}}</h3>
+      <div class="col-xs-7 restInfo">
+        <a target="_blank" href="{{restaurant.url}}" style="display:block;"><h3 class="card-title">{{restaurant.name}}</h3></a>
         <p class="card-text">{{restaurant.categories[0][0]}}</p>
-        <a target="_blank" href="{{restaurant.url}}" style="display:block;">Visit website</a>
-        <a target="_blank" href="http://maps.google.com/?q=?{{restaurant.location.display_address[0]}} {{restaurant.location.display_address[2]}}" style="display:block;">Find on Google Maps</a>
+        <a target="_blank" href="http://maps.google.com/?q=?{{restaurant.location.display_address[0]}} {{restaurant.location.display_address[2]}}" style="display:block;">{{restaurant.location.address[0] +',  '+ restaurant.location.city +',  '+ restaurant.location.state_code}}</a>
       </div>  
     </div>
   </div>

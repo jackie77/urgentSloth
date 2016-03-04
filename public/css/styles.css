@@ -162,14 +162,6 @@ body {
   padding: 0 15px 0 15px;
 }
 
-.restImage {
-  display: block;
-  margin-top: 7px;
-  margin-bottom: 2px;
-  width: 100px; /* same as review start image */
-  height: auto;
-}
-
 .restImage.review {
   margin-top: 0px;
   margin-bottom: 2px;
@@ -321,3 +313,20 @@ h3.a {
   border-radius: 32px;
   color: black;
 }
+
+.restAddButton{
+  margin-right : 20px;
+}
+
+.restInfo{
+  margin-left : 20px;
+}
+
+.restImage {
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 2px;
+  width: 100px; /* same as review start image */
+  height: auto;
+}
+

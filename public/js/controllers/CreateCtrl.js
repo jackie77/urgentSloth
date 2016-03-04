@@ -66,6 +66,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     if ($scope.term && $scope.location) {
       $scope.showSpiffy = true;
       Event.searchYelp($scope.term, $scope.location).then(function(results){
+        console.log('results>>>\n',results.data.businesses);
         $scope.showSpiffy = false;
         $scope.yelpResults = results.data.businesses;
       }).catch(function(err){
