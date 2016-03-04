@@ -95,13 +95,19 @@ angular.module('EventsCtrl', [])
 
     if( dateVotesArr && locationVotesArr && dateVotesArr.indexOf(true) > -1 && locationVotesArr.indexOf(true) > -1){
       var voteData = {
-          userFbId: $cookies.get('fbId'), 
-          eventId: event._id,
-          dateVotesArr: dateVotesArr, 
-          locationVotesArr: locationVotesArr 
-        };
+        userFbId: $cookies.get('fbId'), 
+        eventId: event._id,
+        dateVotesArr: dateVotesArr, 
+        locationVotesArr: locationVotesArr 
+      };
+
       Event.submitEventVotes(voteData)
-      $route.reload();
+      .then(function (data) {
+        $route.reload();
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
     }
   };
 
