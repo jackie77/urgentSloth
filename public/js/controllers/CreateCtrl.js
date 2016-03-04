@@ -1,4 +1,5 @@
-angular.module('CreateCtrl', []).controller('CreateController', function($scope, $log, $cookies, $location, User, Event) {
+angular.module('CreateCtrl', [])
+.controller('CreateController', function($scope, $log, $cookies, $location, User, Event, anchorSmoothScroll) {
 
   $scope.mytime = new Date();
 
@@ -63,6 +64,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   //Fires up Yelp search for restaurants based on 'Add location' form on create.html
   $scope.submit = function() {
     if ($scope.term && $scope.location) {
+      anchorSmoothScroll.scrollTo('yelpSearch');
       $scope.showSpiffy = true;
       Event.searchYelp($scope.term, $scope.location).then(function(results){
         $scope.showSpiffy = false;
