@@ -89,7 +89,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     $scope.mytime.setMonth(0);
     $scope.mytime.setDate(1);
 
-    var dateTime = new Date(1 * $scope.date + 1 * $scope.time - 8 * 3600 * 1000);
+    var dateTime = new Date(1 * $scope.date + 1 * $scope.mytime - 8 * 3600 * 1000);
 
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
