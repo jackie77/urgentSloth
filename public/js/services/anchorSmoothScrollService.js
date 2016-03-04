@@ -26,7 +26,7 @@ angular.module('anchorSmoothScrollService', [])
     var stopY = elmYPosition(eID);
     var distance = stopY > startY ? stopY - startY : startY - stopY;
     if (distance < 100) {
-      scrollTo(0, stopY); return;
+      return;
     }
     var speed = Math.round(distance / 100);
     if (speed >= 20) speed = 10;
