@@ -168,20 +168,22 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     }
 
 
-
     var emails = [];
     var ids = Object.keys($scope.attendees);
 
     for(var i = 0; i < ids.length; i++){
-      var id = ids[i].toString();
+      var fbId = ids[i].toString();
 
-      User.getFriends(id)
+      //not get friends. need to get one user object.
+      User.getUser(fbId)
       .then(function(foundUser){
-        emails.push(foundUser[0]);
+        emails.push(foundUser.email);
+
+        if(i === ids.length){
+          User.notifyUser(emails);
+        }
       });
     }
-    //send notification to users 
-    // User.notifyUser();
 
     $scope.showValidationMessage = false;
     var event = {};
