@@ -42,15 +42,14 @@
     <form role="form" ng-submit="addDateTimes()">
       <div class="form-group">
         <h2>Pick a Date and Time</h2>
-        <div class='well well-sm'>
-        <label for="Date"></label><br>
-        <input type="date" id="Date" ng-model="date">
-        <b></b><br>
-        <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
-
-        <input type="submit" value="Add" class="btn btn-primary"/>
-        </div>
-        <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
+          <div class='well well-sm'>
+            <label for="Date"></label><br>
+            <input type="date" id="Date" ng-model="date">
+            <br>
+            <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+            <input type="submit" value="Add" class="btn btn-primary"/>
+          </div>
+          <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
       </div>
     </form>
 
@@ -90,13 +89,13 @@
         <div class="form-group">
           <label for="termSearch">Enter the name of the restaurant:</label>
           <input type="text" class="form-control" id="termSearch" ng-model="term">
-          <b></b><br>
+          <br>
           <label for="locationSearch">Enter a location:</label>
           <input type="text" class="form-control" id="locationSearch" ng-model="location">
         </div>
-        <input type="submit" value="Search" class="btn btn-primary searchRestButton" ng-click='switch()'/>
-        <button type="button" class="btn btn-info searchRestButton" data-toggle="collapse" data-target="#collapse" ng-show="yelpResults.length" ng-click="toggle = !toggle">{{toggle && 'Hide' || 'Show'}} results</button>
-        <img src='css/spiffy.gif' ng-show="showSpiffy">
+          <input type="submit" value="Search" class="btn btn-primary searchRestButton" ng-click='switch()'/>
+          <button type="button" class="btn btn-info searchRestButton" data-toggle="collapse" data-target="#collapse" ng-show="yelpResults.length" ng-click="toggle = !toggle">{{toggle && 'Hide' || 'Show'}} results</button>
+          <img src='css/spiffy.gif' ng-show="showSpiffy">
       </form>
 
       <!-- Search results from Yelp API -->
