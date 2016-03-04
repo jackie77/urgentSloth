@@ -68,7 +68,8 @@ angular.module('CreateCtrl', [])
         $scope.showSpiffy = false;
         $scope.yelpResults = results.data.businesses;
         anchorSmoothScroll.scrollTo('yelpSearch');
-      }).catch(function(err){
+      })
+      .catch(function(err){
         console.log(err);
       })
     }

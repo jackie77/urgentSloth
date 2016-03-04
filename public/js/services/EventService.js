@@ -27,7 +27,10 @@ angular.module('EventService', [])
     },
 
     submitEventVotes : function(voteData) {
-      return $http.post('/api/events/submit', voteData);
+      return $http.post('/api/events/submit', voteData)
+      .then(function (res) {
+        return res.data;
+      });
     },
 
     getUserEvents: function(fbId) {
