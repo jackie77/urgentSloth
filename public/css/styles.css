@@ -117,19 +117,8 @@ body {
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-  color: #2d7b52 !important;
+  color: #2d7b52;
   background-color: #fff !important;
-}
-
-.dropdown-menu {
-  background-color: #2d7b52 !important;
-}
-
-.dropdown-menu li a {
-  color: #fff !important;
-  background-color: #2d7b52 !important;
-  margin-top: 0px !important;
-
 }
 
 .navbar-default .navbar-toggle {
@@ -329,4 +318,145 @@ h3.a {
   width: 100px; /* same as review start image */
   height: auto;
 }
+
+/* HEADER */
+header {
+  background: #2D7B52;
+  width: 100%;
+  height: 76px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 4px solid #000;
+  z-index: 100;
+  color: #FFF;
+  font-size: 1.7em;
+}
+
+header .logo {
+  width: 50px;
+  height: 50px;
+  vertical-align: top;
+  margin-top: 16px;
+}
+
+header button {
+  background-color: #2D7B52;
+  border: none;
+}
+
+header #username {
+  font-size: 1.3em;
+}
+
+header .profile-pic {
+  width: 45px;
+  height: 45px;
+  vertical-align: top;
+  margin-top: -10px;
+  margin-left: 40px;
+  border-radius: 20px;
+}
+
+header .nav-text {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 1.6em;
+}
+
+header a {
+  color: #FFF;
+}
+
+header a:visited, header a:link {
+  color: #FFF;
+  text-decoration: none;
+}
+
+header a:hover {
+  text-decoration: none;
+}
+
+header nav {
+  float: right;
+  padding: 20px 0 0 0;
+}
+
+header ul {
+  list-style: none;
+}
+
+header li {
+  display: inline-block;
+  float: left;
+  padding: 17px 0 0px 45px;
+}
+
+header .non-mobile {
+  display: inline-block;
+}
+
+header .non-mobile li {
+  padding: 0px;
+  margin-left: 20px
+}
+
+header ul.dropdown-menu {
+  background-color: #FFF;
+  position: absolute;
+  width: 100%;
+  border: none;
+  margin-top: 6px;
+}
+
+header ul.dropdown-menu {
+  padding: 0;
+}
+
+header ul.dropdown-menu a, header ul.dropdown-menu li{
+  
+  color: #2d7b52;
+  text-align: center;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-size: 1.2em;
+}
+
+header .dropdown-menu a:hover, header .dropdown-menu li:hover {
+  background-color: #2d7b52;
+  color: #FFF; 
+}
+
+header span.caret {
+  border-width: 8px;
+}
+
+/*Fix overlap of fixed header with rest of webpage*/
+.header-overlap {
+  margin-top: 85px;
+}
+
+header .mobile {
+  display: none;
+}
+
+/*MEDIA QUERY*/
+@media only screen and (max-width : 720px) {
+
+  header {
+    position: fixed;
+    font-size: 1.1em;
+  }
+
+  header .mobile {
+    display:inline-block;
+  }
+
+  header .non-mobile {
+    display: none;
+  }
+
+}
+
 
