@@ -1,7 +1,7 @@
 <div>
   <!-- the whole user input form starts here -->
   <div class="event create">
-     <h2>Name your event:</h2>
+    <h2>Name your event:</h2>
     <input type="text" class="form-control eventname text-center" ng-model="eventName" placeholder="Name it and they will come...">
   
     <h2>Invite some friends:</h2>
@@ -62,84 +62,88 @@
     </div>
 
     <!-- Decide by date -->
-    <div class="event create"><h3>Add a decide-by date</h3>
+    <div class="event create">
+      <h3>Add a decide-by date</h3>
 
-    <form role="form" ng-submit="addDecideByTime()">
-      <div class="form-group">
-        <label for="DecideDate">When do you want the poll to end?</label>
-        <input type="date" id="DecideDate" ng-model="decideDate">
-        <label for="DecideTime">Pick a time</label>
-        <input type="time" id="DecideTime" ng-model="decideTime">
-        <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-        <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
-      </div>
-    </form>
+      <form role="form" ng-submit="addDecideByTime()">
+        <div class="form-group">
+          <label for="DecideDate">When do you want the poll to end?</label>
+          <input type="date" id="DecideDate" ng-model="decideDate">
+          <label for="DecideTime">Pick a time</label>
+          <input type="time" id="DecideTime" ng-model="decideTime">
+          <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
+          <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
+        </div>
+      </form>
 
-    <div class="list-group">
-      <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
-        <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
-      </a>
-    </div>
-
-  <!-- Dynamic search form using YelpAPI -->
-  <form role="form" ng-submit="submit()" id="yelpSearch">
-    <div class="form-group">
-      <label for="termSearch">Name of restaurant:</label>
-      <input type="text" class="form-control" id="termSearch" ng-model="term">
-      <label for="locationSearch">Where:</label>
-      <input type="text" class="form-control" id="locationSearch" ng-model="location">
-    </div>
-    <input type="submit" value="Search" class="btn btn-primary searchRestButton"/>
-    <button type="button" class="btn btn-info searchRestButton" data-toggle="collapse" data-target="#collapse" ng-show="yelpResults.length" ng-click="toggle = !toggle">{{toggle && 'Hide' || 'Show'}} results</button>
-    <img src='css/spiffy.gif' ng-show="showSpiffy">
-  </form>
-
-  <!-- Search results from Yelp API -->
-  <div class="well vertical collapse in" id="collapse">
-    <div class="row highlight" ng-repeat="restaurant in yelpResults">
-
-      <div class="col-xs-1 restaurantAddButton">
-        <button type="button" class="voteButton" ng-click="addRemoveLocation(restaurant)" toggle-class="clicked">
-          <span class="glyphicon glyphicon-plus"></span>
-        </button>
+      <div class="list-group">
+        <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
+          <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+        </a>
       </div>
 
-      <div class="col-xs-2">
-        <img class="restImage" src="{{restaurant.image_url}}" />
-        <img class="restImage review" src="{{restaurant.rating_img_url_large}}" />
-        <p>{{restaurant.review_count}} reviews</p>
-      </div>
+      <!-- Dynamic search form using YelpAPI -->
+      <form role="form" ng-submit="submit()" id="yelpSearch">
+        <div class="form-group">
+          <label for="termSearch">Name of restaurant:</label>
+          <input type="text" class="form-control" id="termSearch" ng-model="term">
+          <label for="locationSearch">Where:</label>
+          <input type="text" class="form-control" id="locationSearch" ng-model="location">
+        </div>
+        <input type="submit" value="Search" class="btn btn-primary searchRestButton"/>
+        <button type="button" class="btn btn-info searchRestButton" data-toggle="collapse" data-target="#collapse" ng-show="yelpResults.length" ng-click="toggle = !toggle">{{toggle && 'Hide' || 'Show'}} results</button>
+        <img src='css/spiffy.gif' ng-show="showSpiffy">
+      </form>
 
-      <div class="col-xs-7 restInfo">
-        <a target="_blank" href="{{restaurant.url}}" style="display:block;"><h3 class="card-title">{{restaurant.name}}</h3></a>
-        <p class="card-text">{{restaurant.categories[0][0]}}</p>
-        <a target="_blank" href="http://maps.google.com/?q=?{{restaurant.location.display_address[0]}} {{restaurant.location.display_address[2]}}" style="display:block;">{{restaurant.location.address[0] +',  '+ restaurant.location.city +',  '+ restaurant.location.state_code}}</a>
-      </div>  
+      <!-- Search results from Yelp API -->
+      <div class="well vertical collapse in" id="collapse">
+        <div class="row highlight" ng-repeat="restaurant in yelpResults">
+
+          <div class="col-xs-1 restaurantAddButton">
+            <button type="button" class="voteButton" ng-click="addRemoveLocation(restaurant)" toggle-class="clicked">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </div>
+
+          <div class="col-xs-2">
+            <img class="restImage" src="{{restaurant.image_url}}" />
+            <img class="restImage review" src="{{restaurant.rating_img_url_large}}" />
+            <p>{{restaurant.review_count}} reviews</p>
+          </div>
+
+          <div class="col-xs-7 restInfo">
+            <a target="_blank" href="{{restaurant.url}}" style="display:block;"><h3 class="card-title">{{restaurant.name}}</h3></a>
+            <p class="card-text">{{restaurant.categories[0][0]}}</p>
+            <a target="_blank" href="http://maps.google.com/?q=?{{restaurant.location.display_address[0]}} {{restaurant.location.display_address[2]}}" style="display:block;">{{restaurant.location.address[0] +',  '+ restaurant.location.city +',  '+ restaurant.location.state_code}}</a>
+          </div>  
+        </div>
+      </div>
+  
+      <form role="form" ng-submit="submitEvent()">
+        <input type="submit" value="Submit" class="btn-lg btn btn-primary"/>
+
+      <!-- List of locations -->
+        <div class="well well-sm">
+          <h3 class='eventSubtitle'>MY PICKS</h3>
+
+          <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
+
+          <div class="row highlight" ng-repeat="rest in locations">
+            <div class="col-xs-2">
+              <img class="restImage" src="{{rest.image_url}}">
+              <img class="restImage review" src="{{rest.rating_img_url_large}}">
+              <p>{{rest.review_count}} reviews</p>
+            </div>
+
+            <div class="col-xs-10">
+              <h3 class="card-title">{{rest.name}}</h3>
+              <p class="card-text">{{rest.categories[0][0]}}</p>
+              <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
+              <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
+            </div>  
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  <form role="form" ng-submit="submitEvent()">
-    <input type="submit" value="Submit" class="btn-lg btn btn-primary"/>
-
-  <!-- List of locations -->
-    <div class="well well-sm">
-      <h3 class='eventSubtitle'>MY PICKS</h3>
-
-      <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
-
-      <div class="row highlight" ng-repeat="rest in locations">
-        <div class="col-xs-2">
-          <img class="restImage" src="{{rest.image_url}}">
-          <img class="restImage review" src="{{rest.rating_img_url_large}}">
-          <p>{{rest.review_count}} reviews</p>
-        </div>
-
-        <div class="col-xs-10">
-          <h3 class="card-title">{{rest.name}}</h3>
-          <p class="card-text">{{rest.categories[0][0]}}</p>
-          <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
-          <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
-        </div>  
-      </div>
-    </div>
-  </form>
 </div>
