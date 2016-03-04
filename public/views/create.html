@@ -120,7 +120,6 @@
           </div>  
         </div>
       </div>
-  
       <form role="form" ng-submit="submitEvent()" ng-show="checkChosen">
         
       <!-- List of locations -->
@@ -144,6 +143,7 @@
             </div>  
           </div>
         </div>
+        <h3 class="alert alert-danger validationMessage" ng-show="showValidationMessage">{{validationMessage}}</h3>
         <input type="submit" value="Submit" class="btn btn-primary"/>
       </form>
     </div>
