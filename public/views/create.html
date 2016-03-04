@@ -54,9 +54,15 @@
     <!-- List of picked dates -->
     <div class="list-group">
       <a href="#" class="list-group-item" ng-repeat="time in dateTimes" ng-click="removeDateTime(time)">
-        <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+        <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}
+        <button class="removeTimeButton btn btn-primary" ng-click="removeDateTime(time)"> Remove
+        </button>
+        </h4>
       </a>
     </div>
+
+    <!-- Decide by date -->
+    <div class="event create"><h3>Add a decide-by date</h3>
 
     <form role="form" ng-submit="addDecideByTime()">
       <div class="form-group">
@@ -151,33 +157,3 @@
       <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
     </div>
   </form>
-
-
-  <!-- List of picked dates -->
-  <div class="list-group">
-    <a href="#" class="list-group-item" ng-repeat="time in dateTimes" >
-      <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}
-        <button class="removeTimeButton btn btn-primary" ng-click="removeDateTime(time)"> Remove
-        </button>
-      </h4>
-    </a>
-  </div>
-
-
-  <!-- Decide by date -->
-  <div class="event create"><h3>Add a decide-by date</h3>
-
-  <form role="form" ng-submit="addDecideByTime()">
-    <div class="form-group">
-      <label for="DecideDate">Pick a date</label>
-      <input type="date" id="DecideDate" ng-model="decideDate">
-      <label for="DecideTime">Pick a time</label>
-      <input type="time" id="DecideTime" ng-model="decideTime">
-      <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-      <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
-    </div>
-  </form>
-  <h3 class="alert alert-danger validationMessage" ng-show="showValidationMessage">{{validationMessage}}</h3>
-  </div>
-  </div>
-</div>
