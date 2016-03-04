@@ -1,4 +1,5 @@
-angular.module('CreateCtrl', []).controller('CreateController', function($scope, $log, $cookies, $location, User, Event) {
+angular.module('CreateCtrl', [])
+.controller('CreateController', function($scope, $log, $cookies, $location, User, Event, anchorSmoothScroll) {
 
   $scope.mytime = new Date();
 
@@ -67,6 +68,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
       Event.searchYelp($scope.term, $scope.location).then(function(results){
         $scope.showSpiffy = false;
         $scope.yelpResults = results.data.businesses;
+        anchorSmoothScroll.scrollTo('yelpSearch');
       }).catch(function(err){
         console.log(err);
       })

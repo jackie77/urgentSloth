@@ -82,7 +82,7 @@
     </div>
 
   <!-- Dynamic search form using YelpAPI -->
-  <form role="form" ng-submit="submit()">
+  <form role="form" ng-submit="submit()" id="yelpSearch">
     <div class="form-group">
       <label for="termSearch">Name of restaurant:</label>
       <input type="text" class="form-control" id="termSearch" ng-model="term">
@@ -124,36 +124,22 @@
     <div class="well well-sm">
       <h3 class='eventSubtitle'>MY PICKS</h3>
 
-    <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
+      <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
 
-    <div class="row highlight" ng-repeat="rest in locations">
+      <div class="row highlight" ng-repeat="rest in locations">
+        <div class="col-xs-2">
+          <img class="restImage" src="{{rest.image_url}}">
+          <img class="restImage review" src="{{rest.rating_img_url_large}}">
+          <p>{{rest.review_count}} reviews</p>
+        </div>
 
-      <div class="col-xs-2">
-        <img class="restImage" src="{{rest.image_url}}">
-        <img class="restImage review" src="{{rest.rating_img_url_large}}">
-        <p>{{rest.review_count}} reviews</p>
+        <div class="col-xs-10">
+          <h3 class="card-title">{{rest.name}}</h3>
+          <p class="card-text">{{rest.categories[0][0]}}</p>
+          <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
+          <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
+        </div>  
       </div>
-
-      <div class="col-xs-10">
-        <h3 class="card-title">{{rest.name}}</h3>
-        <p class="card-text">{{rest.categories[0][0]}}</p>
-        <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
-        <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
-      </div>  
-    </div>
-</div>
-
-  </div>
-  <!-- List of dates -->
-  <div class="event create"><h3> Add date and time options: </h3>
-
-  <form role="form" ng-submit="addDateTimes()">
-    <div class="form-group">
-      <label for="Date">Pick a date</label>
-      <input type="date" id="Date" ng-model="date">
-      <label for="Time">Pick a time</label>
-      <input type="time" id="Time" ng-model="time">
-      <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-      <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
     </div>
   </form>
+</div>

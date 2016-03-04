@@ -1,6 +1,6 @@
-angular.module('anchorSmoothScrollService', []);
-.service('anchorSmoothScroll', function($scope, $location){
-  this.scrollTo = function(eID) {
+angular.module('anchorSmoothScrollService', [])
+.factory('anchorSmoothScroll', function(){
+  var scrollTo = function(eID) {
     var startY = currentYPosition();
     var stopY = elmYPosition(eID);
     var distance = stopY > startY ? stopY - startY : startY - stopY;
@@ -44,6 +44,10 @@ angular.module('anchorSmoothScrollService', []);
       } 
       return y;
     }
+  };
+
+  return {
+    scrollTo: scrollTo
   };
 });
 
