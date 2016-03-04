@@ -12,7 +12,7 @@ angular.module('EventsCtrl', [])
 
   $scope.filterEvents = function(index){
     $scope.filters[index] = !$scope.filters[index]*1;
-    $scope.filters[3] = Math.max(1*$scope.filters[0],1*$scope.filters[1],1*$scope.filters[2]);
+    $scope.filters[3] = Math.max(1 * $scope.filters[0],1*$scope.filters[1],1*$scope.filters[2]);
   };
 
   var getUserEvents = function(){
@@ -37,6 +37,10 @@ angular.module('EventsCtrl', [])
       $scope.data.notVotedEvents = events.filter(function(event){
         var isNotVoted = event.usersWhoSubmitted.length !== event.users.length;
         return event.usersWhoSubmitted.indexOf(userFbId) == -1 && !event.decision && isNotVoted;
+      });
+
+      $scope.data.notVotedEvents.map(function(event){
+        event.currentIndex = 0;
       });
 
       if(!$scope.data.decidedEvents.length && !$scope.data.submittedEvents.length && !$scope.data.notVotedEvents.length){
@@ -76,7 +80,8 @@ angular.module('EventsCtrl', [])
     }
     $scope.data.notVotedEvents[eventIndex].dateVotesArr[index] = !$scope.data.notVotedEvents[eventIndex].dateVotesArr[index];
   };
-
+  
+  //submits decision
   $scope.submit = function (event, index) {
     dateVotesArr = $scope.data.notVotedEvents[index].dateVotesArr;
     locationVotesArr = $scope.data.notVotedEvents[index].locationVotesArr;
