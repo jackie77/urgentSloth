@@ -300,3 +300,17 @@ p {
   font-color:black;
 }
 
+h3.a {text-shadow: -1px 0 white, 0 1px white,
+      1px 0 white, 0 -1px white}
+
+
+      .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+      }
+      .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+      }

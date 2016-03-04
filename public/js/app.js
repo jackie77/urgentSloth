@@ -1,4 +1,5 @@
 angular.module('sampleApp', [
+  'ui.bootstrap',
 	'ngRoute',
   'ngCookies',
 	'appRoutes',

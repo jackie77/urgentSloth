@@ -2,6 +2,7 @@
   "name": "starter-node-angular",
   "main": "server.js",
   "dependencies": {
+    "angular-bootstrap-datetimepicker": "^1.0.1",
     "body-parser": "~1.4.2",
     "bower": "^1.7.7",
     "cookie-parser": "^1.4.1",
