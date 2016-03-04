@@ -1,16 +1,13 @@
 <div>
-  
+  <!-- the whole user input form starts here -->
   <div class="event create">
      <h2>Name your event:</h2>
     <input type="text" class="form-control eventname text-center" ng-model="eventName" placeholder="Name it and they will come...">
-  </div>
-
-  <div class="event create">
+  
     <h2>Invite some friends:</h2>
     <!-- Dynamic search form for friends -->
     <form>
       <fieldset class="form-group">
-        <!-- <label for="friendSearch">Find friends:</label> -->
         <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter friends by name"/>
       </fieldset>
     </form>
@@ -27,7 +24,7 @@
         </div>  
       </div>
     </div>
-      
+
     <!-- List of attendees -->
     <div class='well well-sm'>
       <h3 class='eventSubtitle' >INVITEES</h3>
@@ -41,9 +38,42 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="event create"><h2>Add restaurant options</h2>
+    <form role="form" ng-submit="addDateTimes()">
+      <div class="form-group">
+        <label for="Date">Pick a Date and Time</label><br>
+        <input type="date" id="Date" ng-model="date">
+        <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+
+        <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
+
+        <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
+      </div>
+    </form>
+
+    <!-- List of picked dates -->
+    <div class="list-group">
+      <a href="#" class="list-group-item" ng-repeat="time in dateTimes" ng-click="removeDateTime(time)">
+        <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+      </a>
+    </div>  
+
+    <form role="form" ng-submit="addDecideByTime()">
+      <div class="form-group">
+        <label for="DecideDate">When do you want the poll to end?</label>
+        <input type="date" id="DecideDate" ng-model="decideDate">
+        <label for="DecideTime">Pick a time</label>
+        <input type="time" id="DecideTime" ng-model="decideTime">
+        <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
+        <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
+      </div>
+    </form>
+
+    <div class="list-group">
+      <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
+        <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+      </a>
+    </div>
 
   <!-- Dynamic search form using YelpAPI -->
   <form role="form" ng-submit="submit()">
@@ -82,85 +112,10 @@
       </div>  
     </div>
   </div>
-
-  <!-- List of locations -->
-    <div class="well well-sm">
-      <h3 class='eventSubtitle'>MY PICKS</h3>
-
-    <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
-
-    <div class="row highlight" ng-repeat="rest in locations">
-
-      <div class="col-xs-2">
-        <img class="restImage" src="{{rest.image_url}}">
-        <img class="restImage review" src="{{rest.rating_img_url_large}}">
-        <p>{{rest.review_count}} reviews</p>
-      </div>
-
-      <div class="col-xs-10">
-        <h3 class="card-title">{{rest.name}}</h3>
-        <p class="card-text">{{rest.categories[0][0]}}</p>
-        <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
-        <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
-      </div>  
-    </div>
-</div>
-
-  </div>
-  <!-- List of dates -->
-  <div class="event create"><h3> Add date and time options: </h3>
-
-  <form role="form" ng-submit="addDateTimes()">
-    <div class="form-group">
-      <label for="Date">Pick a date</label>
-      <input type="date" id="Date" ng-model="date">
-      <label for="Time">Pick a time</label>
-      <input type="time" id="Time" ng-model="time">
-      <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-      <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>
-    </div>
+  <form role="form" ng-submit="submitEvent()">
+    <input type="submit" value="Submit" class="btn-lg btn btn-primary"/>
   </form>
-
-
-  <!-- List of picked dates -->
-  <div class="list-group">
-    <a href="#" class="list-group-item" ng-repeat="time in dateTimes" ng-click="removeDateTime(time)">
-    <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
-    </a>
+  <h3 class="alert alert-danger validationMessage" ng-show="showValidationMessage">{{validationMessage}}</h3>
   </div>
-  </div>
-
-
-  <!-- Decide by date -->
-  <div class="event create"><h3>Add a decide-by date</h3>
-
-  <form role="form" ng-submit="addDecideByTime()">
-    <div class="form-group">
-      <label for="DecideDate">Pick a date</label>
-      <input type="date" id="DecideDate" ng-model="decideDate">
-      <label for="DecideTime">Pick a time</label>
-      <input type="time" id="DecideTime" ng-model="decideTime">
-      <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-      <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
-    </div>
-  </form>
-
-  <div class="list-group">
-    <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
-      <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
-    </a>
-  </div>
-
-  </div>
-  <!-- Submit Event -->
-  <div class="event create"><h3>Send off your event!</h3>
-
-  <div class="row text-center">
-    <form role="form" ng-submit="submitEvent()">
-      <input type="submit" value="Submit" class="btn-lg btn btn-primary"/>
-    </form>
-    <h3 class="alert alert-danger validationMessage" ng-show="showValidationMessage">{{validationMessage}}</h3>
-  </div>
-
   </div>
 </div>
