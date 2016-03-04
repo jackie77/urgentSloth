@@ -46,7 +46,7 @@
             <label for="Date"></label><br>
             <input type="date" id="Date" ng-model="date">
             <br>
-            <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+            <uib-timepicker ng-model="mytime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
             <input type="submit" value="Add" class="btn btn-primary"/>
           </div>
           <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{dateTimeMessage}}</h3>

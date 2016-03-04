@@ -16,10 +16,6 @@ angular.module('CreateCtrl', [])
     $scope.ismeridian = ! $scope.ismeridian;
   };
 
-  $scope.changed = function () {
-    $scope.newTime = $scope.mytime;
-  };
-
   $scope.friends = []; //List of all users
   $scope.attendees = {}; //List of friends added to an event
   $scope.yelpResults = [];
