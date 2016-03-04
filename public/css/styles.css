@@ -297,7 +297,7 @@ p {
 }
 
 .greenText{
-  font-color:black;
+  font-color : black;
 }
 
 h3.a {
@@ -308,6 +308,12 @@ h3.a {
   background-color: limegreen;
   border-radius: 32px;
   color: black;
+}
+
+.removeTimeButton{
+  float :right;
+  display : inline-block;
+  margin-bottom: 10px;
 }
 
 .partially button span {
