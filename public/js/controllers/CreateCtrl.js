@@ -27,9 +27,9 @@ angular.module('CreateCtrl', [])
   $scope.locations = {};
   $scope.dateTimes = {};
   $scope.decideByTime = [];
-
+  $scope.showSearchResult = false;
   $scope.lonelyMessage = "click on friends to invite them";
-  
+  $scope.checkChosen = false;
   $scope.showLonelyMessage = true;
   $scope.noLocationsMessage = '“When you make a choice, you change the future.” - Deepak Chopra';
   $scope.showNoLocationsMessage = true;
@@ -43,6 +43,10 @@ angular.module('CreateCtrl', [])
   //Toggle for Hide/Show Yelp results button
   $scope.toggle = true;
   
+  $scope.switch = function(){
+    $scope.showSearchResult = true;
+  }
+
   var getFriends = function(){
     User.getFriends($cookies.get('fbId')).then(function(friends){
       $scope.friends = friends;
@@ -76,6 +80,8 @@ angular.module('CreateCtrl', [])
   };
 
   $scope.addRemoveLocation = function(restaurant){
+    $scope.checkChosen = true;
+
     //Create a unique for the locations object
     var uniqueKey = restaurant.location.coordinate.latitude + '-' + restaurant.location.coordinate.longitude;
     if($scope.locations[uniqueKey]){
