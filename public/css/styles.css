@@ -1,19 +1,17 @@
 body {
     overflow: scroll;
     font-family: 'Lato', sans-serif;
+    background-width: 100%;
+    background: url('http://static1.squarespace.com/static/55ca76e9e4b00d6bdfd5eab5/t/55ca9d6be4b091def97caaab/1439341931384/drinks.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
 
 .standardBodyClass {
-  background-image: url('http://styledcanvas.com/wp-content/uploads/2015/04/IG-salmon.jpg');
-}
-
-#photo{
-  padding-top: 60px;
-  padding-bottom: 300px;
-  background-image: url('http://styledcanvas.com/wp-content/uploads/2015/04/IG-salmon.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-  border: 20px solid black;
+  background-image: url('http://static1.squarespace.com/static/55ca76e9e4b00d6bdfd5eab5/t/55ca9d6be4b091def97caaab/1439341931384/drinks.jpg');
+  background-width: 100%;
 }
 
 .eventTitle{
@@ -88,17 +86,13 @@ body {
 }
 
 .landingText {
-  color: #fff ;
+  color: #29a329;
   font-family: 'Lato', sans-serif;
-  background-color: #202020   ;
   font-size: 50px;
   font-weight: 800;
-
 }
 
 .login {
-  color: #fff ;
-  background-color:#202020  ;
   font-size: 30px;
   font-weight: 800;
   float: right;
@@ -298,5 +292,26 @@ p {
   margin: 10px 10px 10px 0;
 }
 
-.modal-dialog { z-index: 1000; }
+.modal-dialog {
+  z-index: 1000;
+}
 
+.greenText{
+  font-color:black;
+}
+
+h3.a {
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.full button span {
+  background-color: limegreen;
+  border-radius: 32px;
+  color: black;
+}
+
+.partially button span {
+  background-color: orange;
+  border-radius: 32px;
+  color: black;
+}

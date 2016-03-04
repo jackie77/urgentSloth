@@ -1,4 +1,24 @@
-angular.module('CreateCtrl', []).controller('CreateController', function($scope, $cookies, $location, User, Event) {
+angular.module('CreateCtrl', []).controller('CreateController', function($scope, $log, $cookies, $location, User, Event) {
+
+  $scope.mytime = new Date();
+
+  $scope.hstep = 1;
+  $scope.mstep = 15;
+
+  $scope.options = {
+    hstep: [1, 2, 3],
+    mstep: [1, 5, 10, 15, 25, 30]
+  };
+
+  $scope.ismeridian = true;
+  $scope.toggleMode = function() {
+    $scope.ismeridian = ! $scope.ismeridian;
+  };
+
+  $scope.changed = function () {
+    $log.log('Time changed to: ' + $scope.mytime);
+    $scope.newTime = $scope.mytime;
+  };
 
   $scope.friends = []; //List of all users
   $scope.attendees = {}; //List of friends added to an event
@@ -7,7 +27,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   $scope.dateTimes = {};
   $scope.decideByTime = [];
 
-  $scope.lonelyMessage = "...There's nothing quite like sharing a meal with someone you love - yourself...";
+  $scope.lonelyMessage = "click on friends to invite them";
   $scope.showLonelyMessage = true;
   $scope.noLocationsMessage = '“When you make a choice, you change the future.” - Deepak Chopra';
   $scope.showNoLocationsMessage = true;
@@ -31,7 +51,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
   $scope.addFriend = function(friend){
     $scope.showLonelyMessage = false;
-    $scope.attendees[friend.fbId] = friend; 
+    $scope.attendees[friend.fbId] = friend;
   };
 
   $scope.removeFriend = function(friend){
@@ -64,7 +84,11 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   };
 
   $scope.addDateTimes = function(){
-    var dateTime = new Date(1*$scope.date + 1*$scope.time-8*3600*1000);
+    $scope.mytime.setFullYear(1970);
+    $scope.mytime.setMonth(0);
+    $scope.mytime.setDate(1);
+
+    var dateTime = new Date(1*$scope.date + 1*$scope.mytime-8*3600*1000);
 
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
@@ -72,6 +96,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     } else {
       $scope.showDateTimeMessage = false;
     }
+
     $scope.dateTimes[dateTime] = dateTime;
   };
 
@@ -82,6 +107,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   $scope.addDecideByTime = function(){
     //Allow only one decideBy time
     if(!$scope.decideByTime.length){
+
       var decideBy = new Date(1*$scope.decideDate + 1*$scope.decideTime-8*3600*1000);
       var minDateAndTime = Math.min.apply(null, Object.keys($scope.dateTimes).map(function(key){
         return 1*$scope.dateTimes[key]
@@ -130,7 +156,6 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     //Check if any of the above failed
     var errArr = Object.keys(eventValidation);
-    
     if(errArr.length){
       $scope.validationMessage = errArr.map(function(key){
         return eventValidation[key];
@@ -140,25 +165,22 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
       return;
     }
 
+
+
     var emails = [];
-    
     var ids = Object.keys($scope.attendees);
 
     for(var i = 0; i < ids.length; i++){
-      var fbId = ids[i].toString();
+      var id = ids[i].toString();
 
-      //not get friends. need to get one user object.
-      User.getUser(fbId)
+      User.getFriends(id)
       .then(function(foundUser){
-        emails.push(foundUser.email);
-
-        if(i === ids.length){
-          User.notifyUser(emails);
-        }
+        emails.push(foundUser[0]);
       });
     }
-
     //send notification to users 
+    // User.notifyUser();
+
     $scope.showValidationMessage = false;
     var event = {};
     event.name = $scope.eventName;
@@ -187,4 +209,4 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     });
   };
 
-})
+})  

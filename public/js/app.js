@@ -1,13 +1,14 @@
 angular.module('sampleApp', [
-	'ngRoute',
+  'ui.bootstrap',
+  'ngRoute',
   'ngCookies',
-	'appRoutes',
-	'CreateCtrl',
+  'appRoutes',
+  'CreateCtrl',
   'LogoutCtrl',
   'IndexCtrl',
-	'EventsCtrl',
-	'UserService',
-	'EventService',
+  'EventsCtrl',
+  'UserService',
+  'EventService',
 ])
 
 .factory('Auth', ['$http','$cookies', function($http, $cookies) {
