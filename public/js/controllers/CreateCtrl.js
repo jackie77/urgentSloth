@@ -1,5 +1,5 @@
 angular.module('CreateCtrl', [])
-.controller('CreateController', function($scope, $log, $cookies, $location, User, Event, anchorSmoothScroll) {
+.controller('CreateController', function($scope, $cookies, $location, User, Event, anchorSmoothScroll) {
 
   $scope.mytime = new Date();
 
@@ -17,7 +17,6 @@ angular.module('CreateCtrl', [])
   };
 
   $scope.changed = function () {
-    $log.log('Time changed to: ' + $scope.mytime);
     $scope.newTime = $scope.mytime;
   };
 
