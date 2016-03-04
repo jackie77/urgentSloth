@@ -294,7 +294,7 @@ h3.a {
 .removeTimeButton{
   float :right;
   display : inline-block;
-  margin-bottom: 10px;
+  margin-top: -4px;
 }
 
 .partially button span {
