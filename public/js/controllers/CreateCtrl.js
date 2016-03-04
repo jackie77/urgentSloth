@@ -15,20 +15,9 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     $scope.ismeridian = ! $scope.ismeridian;
   };
 
-  $scope.update = function() {
-    var d = new Date();
-    d.setHours( 14 );
-    d.setMinutes( 0 );
-    $scope.mytime = d;
-    $scope.newTime = $scope.mytime;
-    console.log('new time is ', $scope.newTime);
-  };
-
-  // $scope.newTime;
   $scope.changed = function () {
     $log.log('Time changed to: ' + $scope.mytime);
     $scope.newTime = $scope.mytime;
-    console.log('new time is ', $scope.mytime);
   };
 
   $scope.friends = []; //List of all users
@@ -95,9 +84,6 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   };
 
   $scope.addDateTimes = function(){
-    console.log('add', $scope.mytime);
-    //$scope.update();
-    console.log('scope.mytime  at line 103', $scope.mytime);
     $scope.mytime.setFullYear(1970);
     $scope.mytime.setMonth(0);
     $scope.mytime.setDate(1);

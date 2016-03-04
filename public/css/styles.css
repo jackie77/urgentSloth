@@ -14,7 +14,6 @@ body {
   background-width: 100%;
 }
 
-
 .eventTitle{
   text-transform: uppercase;
   font-weight: bold;
@@ -91,7 +90,6 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 50px;
   font-weight: 800;
-
 }
 
 .login {
@@ -302,7 +300,6 @@ p {
 
 h3.a {text-shadow: -1px 0 white, 0 1px white,
       1px 0 white, 0 -1px white}
-
 
       .full button span {
         background-color: limegreen;
