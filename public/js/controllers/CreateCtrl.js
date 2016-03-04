@@ -28,6 +28,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
   $scope.decideByTime = [];
 
   $scope.lonelyMessage = "click on friends to invite them";
+  
   $scope.showLonelyMessage = true;
   $scope.noLocationsMessage = '“When you make a choice, you change the future.” - Deepak Chopra';
   $scope.showNoLocationsMessage = true;
@@ -88,7 +89,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
     $scope.mytime.setMonth(0);
     $scope.mytime.setDate(1);
 
-    var dateTime = new Date(1*$scope.date + 1*$scope.mytime-8*3600*1000);
+    var dateTime = new Date(1 * $scope.date + 1 * $scope.time - 8 * 3600 * 1000);
 
     if(dateTime < Date.now()){
       $scope.showDateTimeMessage = true;
@@ -156,6 +157,7 @@ angular.module('CreateCtrl', []).controller('CreateController', function($scope,
 
     //Check if any of the above failed
     var errArr = Object.keys(eventValidation);
+
     if(errArr.length){
       $scope.validationMessage = errArr.map(function(key){
         return eventValidation[key];

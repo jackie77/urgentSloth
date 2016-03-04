@@ -162,14 +162,6 @@ body {
   padding: 0 15px 0 15px;
 }
 
-.restImage {
-  display: block;
-  margin-top: 7px;
-  margin-bottom: 2px;
-  width: 100px; /* same as review start image */
-  height: auto;
-}
-
 .restImage.review {
   margin-top: 0px;
   margin-bottom: 2px;
@@ -297,7 +289,7 @@ p {
 }
 
 .greenText{
-  font-color:black;
+  font-color: black;
 }
 
 h3.a {
@@ -310,8 +302,31 @@ h3.a {
   color: black;
 }
 
+.removeTimeButton{
+  float :right;
+  display : inline-block;
+  margin-bottom: 10px;
+}
+
 .partially button span {
   background-color: orange;
   border-radius: 32px;
   color: black;
 }
+
+.restAddButton{
+  margin-right : 20px;
+}
+
+.restInfo{
+  margin-left : 20px;
+}
+
+.restImage {
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 2px;
+  width: 100px; /* same as review start image */
+  height: auto;
+}
+
