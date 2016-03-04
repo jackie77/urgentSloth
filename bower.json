@@ -10,6 +10,5 @@
     "angular-cookies": "latest",
     "oauth-signature": "latest",
     "angular-bootstrap": "^1.2.2",
-    "angular-ui": "^0.4.0"
   }
 }
