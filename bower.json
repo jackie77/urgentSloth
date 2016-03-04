@@ -8,6 +8,7 @@
     "angular": "latest",
     "angular-route": "latest",
     "angular-cookies": "latest",
-    "oauth-signature": "latest"
+    "oauth-signature": "latest",
+    "angular-bootstrap": "^1.2.2"
   }
 }
