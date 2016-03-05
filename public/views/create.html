@@ -120,12 +120,11 @@
           </div>  
         </div>
       </div>
-      <form role="form" ng-submit="submitEvent()" ng-show="checkChosen">
-        
-      <!-- List of locations -->
-        <div class="well well-sm vertical collapse in" ng-show="checkChosen">
-          <h3 class='eventSubtitle'>MY PICKS</h3>
 
+      <form role="form" ng-submit="submitEvent()" ng-show="checkChosen">        
+        <h3 class='eventSubtitle'>MY PICKS</h3>
+        <!-- List of locations -->
+        <div class="well well-sm vertical collapse in" ng-show="checkChosen">
           <h3 class = "text-center" ng-show="showNoLocationsMessage">{{noLocationsMessage}}</h3>
 
           <div class="row highlight" ng-repeat="rest in locations">
