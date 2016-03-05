@@ -505,6 +505,12 @@ header .mobile {
   margin: 20px auto;
 }
 
+.well.vertical.collapse.in {
+  padding: 5px;
+  margin: 5px;
+
+}
+
 /*MEDIA QUERY*/
 @media only screen and (max-width : 720px) {
 
@@ -559,9 +565,18 @@ header .mobile {
     padding-top: 5px;   
   }
   
-  .event, .eventTitle, .eventSubtitle {
+  .event, .eventHeader, .eventTitle, .eventSubtitle {
     margin: 5px;
     padding: 5px;
+  }
+
+  .event.create {
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .eventTitle {
+    font-size: 25px;
   }
 
   .col-xs-9 {
@@ -572,4 +587,9 @@ header .mobile {
     max-width:50px;
     font-size: 70%;
   }
+
+  h2, h3 {
+    font-size: 18px;
+  }
+
 }

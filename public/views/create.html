@@ -2,13 +2,13 @@
   <!-- the whole user input form starts here -->
   <div class="event create">
     <h2>Name your event:</h2>
-    <input type="text" class="form-control eventname text-center" ng-model="eventName" placeholder="Name it and they will come...">
+    <input type="text" class="form-control eventname text-center" ng-model="eventName">
   
     <h2>Invite some friends:</h2>
     <!-- Dynamic search form for friends -->
     <form>
       <fieldset class="form-group">
-        <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter friends by name, click on friend's profile to send an invite"/>
+        <input class="form-control" ng-model='friendName' id="friendSearch" placeholder="Filter by friend's name, then click to invite"/>
       </fieldset>
     </form>
 
@@ -64,14 +64,14 @@
 
     <!-- Decide by date -->
     <div>
-      <h3>Add a decide-by date</h3>
-
       <form role="form" ng-submit="addDecideByTime()">
         <div class="form-group">
-          <h2>When would you like people to decide by?</h2>
+          <h2>When would you like your friends to decide by?</h2>
             <div class='well well-sm'>
               <input ng-model="hoursBefore" type="number" name="quantity" min="1" max="24"> hours before earliest event.
-              <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
+              <br>
+              <br>
+              <input type="submit" value="Add" class="btn btn-primary"/>
             </div>
             <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
         </div>
@@ -101,7 +101,7 @@
       <div class="well vertical collapse in" id="collapse" ng-show='showSearchResult'>
         <div class="row highlight" ng-repeat="restaurant in yelpResults">
 
-          <div class="col-xs-1 restaurantAddButton">
+          <div class="col-xs-1">
             <button type="button" class="voteButton" ng-click="addRemoveLocation(restaurant)" toggle-class="clicked">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
@@ -110,10 +110,10 @@
           <div class="col-xs-2">
             <img class="restImage" src="{{restaurant.image_url}}" />
             <img class="restImage review" src="{{restaurant.rating_img_url_large}}" />
-            <p>{{restaurant.review_count}} reviews</p>
+            <p>{{restaurant.review_count+'&nbsp'+'reviews'}}</p>
           </div>
-
-          <div class="col-xs-7 restInfo">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-6 col-xs-offset-0 restInfo">
             <a target="_blank" href="{{restaurant.url}}" style="display:block;"><h3 class="card-title">{{restaurant.name}}</h3></a>
             <p class="card-text">{{restaurant.categories[0][0]}}</p>
             <a target="_blank" href="http://maps.google.com/?q={{restaurant.location.display_address[0]}} {{restaurant.location.display_address[2]}}" style="display:block;">{{restaurant.location.address[0] +',  '+ restaurant.location.city +',  '+ restaurant.location.state_code}}</a>
@@ -131,11 +131,11 @@
             <div class="col-xs-2">
               <img class="restImage" src="{{rest.image_url}}">
               <img class="restImage review" src="{{rest.rating_img_url_large}}">
-              <p>{{rest.review_count}} reviews</p>
+              <p>{{rest.review_count+'&nbsp'+'reviews'}}</p>
             </div>
 
             <div class="col-xs-10">
-              <h3 class="card-title">{{rest.name}}</h3>
+              <h2 class="card-title">{{rest.name}}</h2>
               <p class="card-text">{{rest.categories[0][0]}}</p>
               <a target="_blank" href="{{rest.url}}" style="display:block;">Visit website</a>
               <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.display_address[0]}} {{rest.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
