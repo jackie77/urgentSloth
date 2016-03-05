@@ -3,8 +3,9 @@ angular.module('EventsCtrl', [])
 .controller('EventsController', function($scope, $cookies, Event, User,$route) {
 
   $scope.showNoEventsMessage = false;
-  $scope.noEventsMessage = 'You have no scheduled events. Time to create one?'
+  $scope.noEventsMessage = 'You have no scheduled events. Time to create one?';
   $scope.data = {};
+
   //Filter array (0=excl/1=excl)
   //Index meaning: [needs your vote, submitted, decided, maxValue in array]
   //Events will only be shown on the page if value at event index === maxValue
@@ -12,8 +13,9 @@ angular.module('EventsCtrl', [])
 
   $scope.filterEvents = function(index){
     $scope.filters[index] = !$scope.filters[index]*1;
-    $scope.filters[3] = Math.max(1*$scope.filters[0],1*$scope.filters[1],1*$scope.filters[2]);
+    $scope.filters[3] = Math.max(1 * $scope.filters[0],1*$scope.filters[1],1*$scope.filters[2]);
   };
+  
 
   var getUserEvents = function(){
     var userFbId = $cookies.get('fbId');
@@ -39,11 +41,15 @@ angular.module('EventsCtrl', [])
         return event.usersWhoSubmitted.indexOf(userFbId) == -1 && !event.decision && isNotVoted;
       });
 
+      $scope.data.notVotedEvents.map(function(event, index){
+        event.currentEventIndex = index;
+      });
+
       if(!$scope.data.decidedEvents.length && !$scope.data.submittedEvents.length && !$scope.data.notVotedEvents.length){
         $scope.showNoEventsMessage = true;
       } else {
         $scope.showNoEventsMessage = false;
-      };
+      }
 
       //Past events page only includes past events
       $scope.data.pastEvents = events.filter(function(event){
@@ -56,10 +62,17 @@ angular.module('EventsCtrl', [])
     .catch(function (error) {
       console.error(error);
     });
-  }
+  };
 
   //we want to get the user's events when the controller first loads
   getUserEvents();
+
+  $scope.vote = function(direction, index, eventIndex, voteEvent, location){
+
+    if(direction === 'right'){ //yes
+      $scope.locationVote(index, eventIndex, voteEvent);
+    }
+  };
 
   $scope.locationVote = function (index, eventIndex, event) {
     if($scope.data.notVotedEvents[eventIndex].locationVotesArr === undefined){
@@ -76,7 +89,8 @@ angular.module('EventsCtrl', [])
     }
     $scope.data.notVotedEvents[eventIndex].dateVotesArr[index] = !$scope.data.notVotedEvents[eventIndex].dateVotesArr[index];
   };
-
+  
+  //submits decision
   $scope.submit = function (event, index) {
     dateVotesArr = $scope.data.notVotedEvents[index].dateVotesArr;
     locationVotesArr = $scope.data.notVotedEvents[index].locationVotesArr;
@@ -95,10 +109,10 @@ angular.module('EventsCtrl', [])
 
     if( dateVotesArr && locationVotesArr && dateVotesArr.indexOf(true) > -1 && locationVotesArr.indexOf(true) > -1){
       var voteData = {
-        userFbId: $cookies.get('fbId'), 
+        userFbId: $cookies.get('fbId'),
         eventId: event._id,
-        dateVotesArr: dateVotesArr, 
-        locationVotesArr: locationVotesArr 
+        dateVotesArr: dateVotesArr,
+        locationVotesArr: locationVotesArr
       };
 
       Event.submitEventVotes(voteData)
@@ -131,6 +145,18 @@ angular.module('EventsCtrl', [])
       element.bind('click', function() {
         element.toggleClass(attrs.toggleClass);
       });
+    }
+  };
+})
+.directive('swing', function(){
+  return {
+    link : function(scope, element){
+      return;
+    },
+    controller : function($scope, $element){
+      $scope.remove = function(){
+        $element.remove();
+      };
     }
   };
 });
