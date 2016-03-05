@@ -539,5 +539,9 @@ header .mobile {
     padding-left: 20px;
   }
 
+  .voteText {
+    max-width:50px;
+    font-size: 70%;
+  }
 
 }
