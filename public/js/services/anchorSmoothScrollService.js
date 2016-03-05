@@ -50,9 +50,4 @@ angular.module('anchorSmoothScrollService', [])
     scrollTo: scrollTo
   };
 });
-
-// $location.hash('bottom');
-
-// // call $anchorScroll()
-// anchorSmoothScroll.scrollTo(eID);
                
