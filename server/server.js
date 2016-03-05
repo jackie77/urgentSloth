@@ -13,11 +13,9 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 
 require('./utils/passport-facebook').passportFacebook(app);
 
-// config files
-var db = require('./config/db');
-
 //db conncection
-mongoose.connect(db.url);
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/urgentSloth');
+
 var connection = mongoose.connection;
 connection.on('error', function (err) { console.log('db connection err:',err)});
 
