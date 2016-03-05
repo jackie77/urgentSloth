@@ -54,6 +54,7 @@ body {
 .badge {
   background-color: #999;
   cursor:pointer;
+  margin: 5px;
 }
 
 .badge.check {
@@ -479,7 +480,7 @@ header .mobile {
     display: block;
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left:10px;
+    margin-left:20px;
     width: 50px; /* same as review start image */
     height: auto;
   }
@@ -504,6 +505,7 @@ header .mobile {
   .event {
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 5px;
   }
 
   .container-fluid {
@@ -517,10 +519,9 @@ header .mobile {
     padding: 5px;
   }
 
-  .col-xs-9 {
-    padding-left: 20px;
+  .eventTitle {
+    margin: 5px;
   }
-
 
 }
 
