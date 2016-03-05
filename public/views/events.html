@@ -17,24 +17,31 @@
     <!-- Restaurant choices -->
 
     <div class = "container">
-      <div class="eventSubtitle">Select the restaurants you like: 18 out of 7
-      </div>
       <div class="event-location container">
-        <ul swing-stack swing-options="options">
-          <li swing-card
-                class = "stack"
-                swing-on-throwoutleft="vote('left', $index, event.currentEventIndex, event); remove()"
-                swing-on-throwoutright="vote('right', $index, event.currentEventIndex, event); remove()"
-                ng-repeat="location in event.locations track by $index" 
-                swing>
-              <img 
+        <ul swing-stack swing-options="options" class="card-stack text-center">
+          <li swing-card class="stack"
+          swing-on-throwoutleft="vote('left', $index, event.currentEventIndex, event); remove()"
+          swing-on-throwoutright="vote('right', $index, event.currentEventIndex, event); remove()"
+          ng-repeat="location in event.locations track by $index" 
+          swing>
+            <div class="card-content">
+              <h4><a class="card-title" target="_blank" href="{{location.location.url}}">{{location.location.name}}</a></h4>
+              <img class="food-pic"
                 src="{{location.location.image_url}}"
                 />
               <br/>
-              <img src="{{location.location.rating_img_url_large}}">
+              <img class="rating-pic" src="{{location.location.rating_img_url_large}}">
               <br/>
               <p>{{location.location.review_count}} reviews</p>
+              <a target="_blank" href="http://maps.google.com/?q={{location.location.location.display_address[0]}} {{location.location.location.display_address[2]}}" style="display:block;">{{location.location.location.address[0] +',  '+ location.location.location.city +',  '+ location.location.location.state_code}}</a>
+            </div>
+            <div class="eventSubtitle">Select the restaurants you like: 
+            {{Math.abs(event.locations.length - $index)}} of {{event.locations.length}}
+            </div>
           </li>  
+          <li swing-card class="stack">
+            <h3> Thank you for voting! Choose time below and submit!</h3>
+          </li>
         </ul>
       </div>
     </div>
