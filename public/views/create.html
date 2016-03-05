@@ -44,7 +44,7 @@
         <h2>Pick a Date and Time</h2>
           <div class='well well-sm'>
             <label for="Date"></label><br>
-            <input type="date" id="Date" ng-model="date">
+            <input type="date" id="Date" ng-model="date" max="2100-12-31">
             <br>
             <uib-timepicker ng-model="mytime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
             <input type="submit" value="Add" class="btn btn-primary"/>
