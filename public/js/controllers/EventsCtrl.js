@@ -1,4 +1,4 @@
-angular.module('EventsCtrl', ['gajus.swing'])
+angular.module('EventsCtrl', [])
 
 .controller('EventsController', function($scope, $cookies, Event, User,$route) {
 
