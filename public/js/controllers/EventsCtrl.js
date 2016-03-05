@@ -6,7 +6,6 @@ angular.module('EventsCtrl', ['gajus.swing'])
   $scope.noEventsMessage = 'You have no scheduled events. Time to create one?';
   $scope.data = {};
 
-  $scope.testArr = ['a', 'b', 'c', 1, 2, 3];
   //Filter array (0=excl/1=excl)
   //Index meaning: [needs your vote, submitted, decided, maxValue in array]
   //Events will only be shown on the page if value at event index === maxValue
@@ -68,15 +67,10 @@ angular.module('EventsCtrl', ['gajus.swing'])
   //we want to get the user's events when the controller first loads
   getUserEvents();
 
-  $scope.vote = function(direction, index, eventIndex, voteEvent){
-     
-    if(event.target.tagName === "IMG"){
-      if(direction === 'left'){ //no
-        event.target.remove();
-      } else if (direction === 'right'){ //yes
-        $scope.locationVote(index, eventIndex, voteEvent);
-        event.target.remove();
-      }
+  $scope.vote = function(direction, index, eventIndex, voteEvent, location){
+
+    if(direction === 'right'){ //yes
+      $scope.locationVote(index, eventIndex, voteEvent);
     }
   };
 
@@ -115,10 +109,10 @@ angular.module('EventsCtrl', ['gajus.swing'])
 
     if( dateVotesArr && locationVotesArr && dateVotesArr.indexOf(true) > -1 && locationVotesArr.indexOf(true) > -1){
       var voteData = {
-        userFbId: $cookies.get('fbId'), 
+        userFbId: $cookies.get('fbId'),
         eventId: event._id,
-        dateVotesArr: dateVotesArr, 
-        locationVotesArr: locationVotesArr 
+        dateVotesArr: dateVotesArr,
+        locationVotesArr: locationVotesArr
       };
 
       Event.submitEventVotes(voteData)
@@ -151,6 +145,18 @@ angular.module('EventsCtrl', ['gajus.swing'])
       element.bind('click', function() {
         element.toggleClass(attrs.toggleClass);
       });
+    }
+  };
+})
+.directive('swing', function(){
+  return {
+    link : function(scope, element){
+      console.log('\neee\n', element);
+    },
+    controller : function($scope, $element){
+      $scope.remove = function(){
+        $element.remove();
+      };
     }
   };
 });
