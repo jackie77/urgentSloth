@@ -151,7 +151,7 @@ angular.module('EventsCtrl', ['gajus.swing'])
 .directive('swing', function(){
   return {
     link : function(scope, element){
-      console.log('\neee\n', element);
+      return;
     },
     controller : function($scope, $element){
       $scope.remove = function(){

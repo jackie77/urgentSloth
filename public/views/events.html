@@ -16,25 +16,24 @@
     <div class='eventTitle'>{{ event.name }}   <span class="badge">Needs your vote</span></div>
     <!-- Restaurant choices -->
 
-    <div class = "insideStack container">
-      <div class="insideStack eventSubtitle">Select the restaurants you like: 18 out of 7
+    <div class = "container">
+      <div class="eventSubtitle">Select the restaurants you like: 18 out of 7
       </div>
-      <div class="insideStack event-location container">
-        <ul swing-stack swing-options="options" class="insideStack">
+      <div class="event-location container">
+        <ul swing-stack swing-options="options">
           <li swing-card
-                class = "insideStack stack"
+                class = "stack"
                 swing-on-throwoutleft="vote('left', $index, event.currentEventIndex, event); remove()"
                 swing-on-throwoutright="vote('right', $index, event.currentEventIndex, event); remove()"
                 ng-repeat="location in event.locations track by $index" 
                 swing>
               <img 
                 src="{{location.location.image_url}}"
-                class = "insideStack"
                 />
-              <br class = "insideStack"/>
-              <img class = "insideStack" src="{{location.location.rating_img_url_large}}">
-              <br class = "insideStack"/>
-              <p class = "insideStack">{{location.location.review_count}} reviews</p>
+              <br/>
+              <img src="{{location.location.rating_img_url_large}}">
+              <br/>
+              <p>{{location.location.review_count}} reviews</p>
           </li>  
         </ul>
       </div>
@@ -172,14 +171,14 @@
         </div>
       </div> 
       <!-- Trigger the modal with a button -->
-      <button id='eventActionButton' type="button" class="btn btn-danger" data-toggle="modal" data-target="#declineModal">I can't attend</button>
-
+<!--       <button id='eventActionButton' type="button" class="btn btn-danger" data-toggle="modal" data-target="#declineModal">I can't attend</button>
+ -->
       <!-- Modal -->
-      <div id="declineModal" class="modal fade" role="dialog">
+<!--       <div id="declineModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
+ -->
           <!-- Modal content-->
-          <div class="modal-content">
+<!--           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">Are you sure you want to decline this event?</h4>
@@ -191,7 +190,7 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
       <!-- modal -->
     </div>
   </div>
