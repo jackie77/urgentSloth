@@ -178,7 +178,7 @@ angular.module('CreateCtrl', [])
         emails.push(foundUser.email);
 
         if(i === ids.length){
-          User.notifyUser(emails, $scope.eventName);
+          User.notifyUser(emails, $scope.eventName, $cookies.get('name'));
         }
       });
     }

@@ -47,13 +47,14 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
         });
       },
 
-      notifyUser : function(emails, eventName){
+      notifyUser : function(emails, eventName, creatorName){
         return $http({
           method : 'POST',
           url : '/api/users/notify',
           data : {
             emailAddresses : emails,
-            eventName : eventName
+            eventName : eventName,
+            creatorName : creatorName
           }
         });
       },
