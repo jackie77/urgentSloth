@@ -30,7 +30,7 @@ angular.module('CreateCtrl', [])
   $scope.showNoLocationsMessage = true;
   $scope.showValidationMessage = false;
   $scope.dateTimeMessage = "Please enter a future date"
-  $scope.decideByMessage = "Please enter a future date that is before the earliest date and time option"
+  $scope.decideByMessage = "Please enter an event date or decide time"
   $scope.showDateTimeMessage = false;
   $scope.showDecideByMessage = false;
   $scope.showSpiffy = false;
@@ -119,6 +119,9 @@ angular.module('CreateCtrl', [])
       })));
       var decideBy = new Date(minDateAndTime.setHours(minDateAndTime.getHours() - $scope.hoursBefore));
       $scope.decideByTime = decideBy;
+    } else {
+      $scope.decideByTime = undefined;
+      $scope.hoursBefore = undefined;
     }
   };
 
