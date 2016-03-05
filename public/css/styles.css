@@ -449,8 +449,7 @@ header .mobile {
 
 /*Tinder voting in events.html*/
 .event-location{
-  margin : 0 auto;
-  width : 200px;
+  margin: 0;
 }
 
 .event-location-picture{
@@ -460,10 +459,52 @@ header .mobile {
 
 .stack {
   position: absolute;
-  left: 50%;
-  margin-left: -100px;
   border-radius: 10px; 
 }
+
+.card-stack {
+  height: 420px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 420px;
+}
+
+.card-stack img.food-pic {
+  margin-bottom: 10px;
+  width: 180px;
+  height: 180px;
+}
+
+.card-stack img.rating-pic {
+  width: 120px;
+}
+
+.card-stack ul {
+  width: 700px;
+}
+
+.card-stack li {
+  list-style: none;
+  background-color: #FFF;
+  width: 100%;
+  max-width: 420px;
+}
+
+.card-title {
+  font-size: 2em;
+}
+
+.card-text {
+  float: right;
+  margin: 15px 10px 0 0;
+}
+
+.card-content {
+  position: relative;
+  margin: 20px auto;
+}
+
 /*MEDIA QUERY*/
 @media only screen and (max-width : 720px) {
 

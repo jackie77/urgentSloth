@@ -7,6 +7,7 @@ angular.module('EventsCtrl', [])
   $scope.noEventsMessage = 'You have no scheduled events. Time to create one?';
   $scope.noPastEventsMessage = 'You have no pasts events.';
   $scope.data = {};
+  $scope.Math = window.Math;
 
   //Filter array (0=excl/1=excl)
   //Index meaning: [needs your vote, submitted, decided, maxValue in array]
@@ -164,6 +165,7 @@ angular.module('EventsCtrl', [])
     controller : function($scope, $element){
       $scope.remove = function(){
         $element.remove();
+        
       };
     }
   };
