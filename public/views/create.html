@@ -68,18 +68,18 @@
 
       <form role="form" ng-submit="addDecideByTime()">
         <div class="form-group">
-          <label for="DecideDate">When do you want the poll to end?</label>
-          <input type="date" id="DecideDate" ng-model="decideDate">
-          <label for="DecideTime">Pick a time</label>
-          <input type="time" id="DecideTime" ng-model="decideTime">
-          <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
-          <h3 class="alert alert-danger validationMessage" ng-show="showDecideByMessage">{{decideByMessage}}</h3>
+          <h2>When would you like people to decide by?</h2>
+            <div class='well well-sm'>
+              <input ng-model="hoursBefore" type="number" name="quantity" min="1" max="24"> hours before earliest event.
+              <input type="submit" value="Add" class="btn btn-primary dateAdder"/>
+            </div>
+            <h3 class="alert alert-danger validationMessage" ng-show="showDateTimeMessage">{{decideByMessage}}</h3>
         </div>
       </form>
 
-      <div class="list-group">
-        <a href="#" class="list-group-item" ng-repeat="time in decideByTime" ng-click="removeDecideBy()">
-          <h4 class="list-group-item-heading">{{ time | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
+      <div class="list-group" ng-if="decideByTime">
+        <a class="list-group-item">
+          <h4 class="list-group-item-heading">{{ decideByTime | date:'EEEE, MMMM d, yyyy @ h:mma' }}</h4>
         </a>
       </div>
 
