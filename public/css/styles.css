@@ -519,6 +519,7 @@ header .mobile {
   .event {
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 5px;
   }
 
   .container-fluid {
@@ -527,7 +528,12 @@ header .mobile {
     padding-top: 5px;   
   }
   
-  .badge.eventSubtitle {
+  .eventTitle {
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  .eventSubtitle {
     margin: 5px;
     padding: 5px;
   }
