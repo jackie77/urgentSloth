@@ -42,15 +42,15 @@ angular.module('EventsCtrl', ['gajus.swing'])
         return event.usersWhoSubmitted.indexOf(userFbId) == -1 && !event.decision && isNotVoted;
       });
 
-      $scope.data.notVotedEvents.map(function(event){
-        event.currentIndex = 0;
+      $scope.data.notVotedEvents.map(function(event, index){
+        event.currentEventIndex = index;
       });
 
       if(!$scope.data.decidedEvents.length && !$scope.data.submittedEvents.length && !$scope.data.notVotedEvents.length){
         $scope.showNoEventsMessage = true;
       } else {
         $scope.showNoEventsMessage = false;
-      };
+      }
 
       //Past events page only includes past events
       $scope.data.pastEvents = events.filter(function(event){
@@ -63,21 +63,21 @@ angular.module('EventsCtrl', ['gajus.swing'])
     .catch(function (error) {
       console.error(error);
     });
-  }
+  };
 
   //we want to get the user's events when the controller first loads
   getUserEvents();
 
   $scope.vote = function(direction, index, eventIndex, voteEvent){
-    
-    if(direction === 'left'){ //no
-      console.log("LEFT", direction, index, eventIndex, voteEvent);
-      event.target.remove();
-    } else if (direction === 'right'){ //yes
-      console.log("RIGHT", direction, index, eventIndex, voteEvent);
-      event.target.remove();
+     
+    if(event.target.tagName === "IMG"){
+      if(direction === 'left'){ //no
+        event.target.remove();
+      } else if (direction === 'right'){ //yes
+        $scope.locationVote(index, eventIndex, voteEvent);
+        event.target.remove();
+      }
     }
-    voteEvent.locations.splice(index, 1);
   };
 
   $scope.locationVote = function (index, eventIndex, event) {
