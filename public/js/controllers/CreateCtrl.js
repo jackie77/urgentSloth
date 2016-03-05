@@ -2,7 +2,7 @@ angular.module('CreateCtrl', [])
 .controller('CreateController', function($scope, $cookies, $location, User, Event, anchorSmoothScroll) {
 
   $scope.mytime = new Date();
-
+  $scope.mytime.setMinutes(60);
   $scope.hstep = 1;
   $scope.mstep = 15;
 
@@ -21,7 +21,7 @@ angular.module('CreateCtrl', [])
   $scope.yelpResults = [];
   $scope.locations = {};
   $scope.dateTimes = {};
-  $scope.decideByTime = [];
+  $scope.decideByTime;
   $scope.showSearchResult = false;
   $scope.lonelyMessage = "click on friends to invite them";
   $scope.checkChosen = false;
@@ -103,32 +103,23 @@ angular.module('CreateCtrl', [])
     }
 
     $scope.dateTimes[dateTime] = dateTime;
+    $scope.addDecideByTime();
   };
 
   $scope.removeDateTime = function(dateTime){
     delete $scope.dateTimes[dateTime];
+    $scope.addDecideByTime();
   };
 
   $scope.addDecideByTime = function(){
     //Allow only one decideBy time
-    if(!$scope.decideByTime.length){
-
-      var decideBy = new Date(1*$scope.decideDate + 1*$scope.decideTime-8*3600*1000);
-      var minDateAndTime = Math.min.apply(null, Object.keys($scope.dateTimes).map(function(key){
+    if(Object.keys($scope.dateTimes).length > 0 && $scope.hoursBefore) {
+      var minDateAndTime = new Date(Math.min.apply(null, Object.keys($scope.dateTimes).map(function(key){
         return 1*$scope.dateTimes[key]
-      }));
-      if(decideBy < Date.now() || decideBy > minDateAndTime){
-        $scope.showDecideByMessage = true;
-        return;
-      } else {
-        $scope.showDecideByMessage = false;
-      }
-      $scope.decideByTime.push(decideBy);
+      })));
+      var decideBy = new Date(minDateAndTime.setHours(minDateAndTime.getHours() - $scope.hoursBefore));
+      $scope.decideByTime = decideBy;
     }
-  };
-
-  $scope.removeDecideBy = function(){
-    $scope.decideByTime.pop();
   };
 
   $scope.submitEvent = function(){
@@ -155,7 +146,7 @@ angular.module('CreateCtrl', [])
     };
     
     //Check if Decide By date is specified
-    if(!$scope.decideByTime.length){
+    if(!$scope.decideByTime){
       eventValidation.deadlineMessage = 'Let your friends know when you expect their response by specifying the decide-by date'
     };
 
@@ -192,7 +183,7 @@ angular.module('CreateCtrl', [])
     $scope.showValidationMessage = false;
     var event = {};
     event.name = $scope.eventName;
-    event.deadline = $scope.decideByTime[0];
+    event.deadline = $scope.decideByTime;
     //Add locations from locations object
     event.locations = [];
     Object.keys($scope.locations).forEach(function(key){
