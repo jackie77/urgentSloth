@@ -10,13 +10,12 @@ var createUser = Q.nbind(User.create, User);
 
 //creates reusable transporter object using default SMTP transport
 var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'alexanderanthony813',
-            pass: 'cjshghqvdxnmpsxy'
-        }
-    });
-
+  service: 'gmail',
+  auth: {
+    user: 'alexanderanthony813',
+    pass: 'cjshghqvdxnmpsxy'
+  }
+});
 
 module.exports = {
 
