@@ -1,4 +1,7 @@
 <div class="wholeEventsView">
+  <div class='event' ng-show="showNoPastEventsMessage">
+    <h3>{{noPastEventsMessage}}</h3>
+  </div>
   <div class='event' ng-repeat="event in data.pastEvents" >
     <div class='eventTitle'>{{ event.name }}</div></h2>
       <!-- decided events -->

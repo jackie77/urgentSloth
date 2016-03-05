@@ -3,7 +3,9 @@ angular.module('EventsCtrl', [])
 .controller('EventsController', function($scope, $cookies, Event, User,$route) {
 
   $scope.showNoEventsMessage = false;
+  $scope.showNoPastEventsMessage = false;
   $scope.noEventsMessage = 'You have no scheduled events. Time to create one?';
+  $scope.noPastEventsMessage = 'You have no pasts events.';
   $scope.data = {};
 
   //Filter array (0=excl/1=excl)
@@ -58,6 +60,12 @@ angular.module('EventsCtrl', [])
       $scope.data.pastEvents.sort(function(a,b){
         return new Date(b.decision.date) - new Date(a.decision.date);
       });
+
+      if(!$scope.data.pastEvents.length){
+        $scope.showNoPastEventsMessage = true;
+      } else {
+        $scope.showNoPastEventsMessage = false;
+      }
     })
     .catch(function (error) {
       console.error(error);
