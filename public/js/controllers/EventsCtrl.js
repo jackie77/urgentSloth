@@ -1,10 +1,12 @@
-angular.module('EventsCtrl', [])
+angular.module('EventsCtrl', ['gajus.swing'])
 
 .controller('EventsController', function($scope, $cookies, Event, User,$route) {
 
   $scope.showNoEventsMessage = false;
-  $scope.noEventsMessage = 'You have no scheduled events. Time to create one?'
+  $scope.noEventsMessage = 'You have no scheduled events. Time to create one?';
   $scope.data = {};
+
+  $scope.testArr = ['a', 'b', 'c', 1, 2, 3];
   //Filter array (0=excl/1=excl)
   //Index meaning: [needs your vote, submitted, decided, maxValue in array]
   //Events will only be shown on the page if value at event index === maxValue
@@ -14,6 +16,7 @@ angular.module('EventsCtrl', [])
     $scope.filters[index] = !$scope.filters[index]*1;
     $scope.filters[3] = Math.max(1 * $scope.filters[0],1*$scope.filters[1],1*$scope.filters[2]);
   };
+  
 
   var getUserEvents = function(){
     var userFbId = $cookies.get('fbId');
@@ -64,6 +67,18 @@ angular.module('EventsCtrl', [])
 
   //we want to get the user's events when the controller first loads
   getUserEvents();
+
+  $scope.vote = function(direction, index, eventIndex, voteEvent){
+    
+    if(direction === 'left'){ //no
+      console.log("LEFT", direction, index, eventIndex, voteEvent);
+      event.target.remove();
+    } else if (direction === 'right'){ //yes
+      console.log("RIGHT", direction, index, eventIndex, voteEvent);
+      event.target.remove();
+    }
+    voteEvent.locations.splice(index, 1);
+  };
 
   $scope.locationVote = function (index, eventIndex, event) {
     if($scope.data.notVotedEvents[eventIndex].locationVotesArr === undefined){

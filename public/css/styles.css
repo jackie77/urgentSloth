@@ -27,6 +27,7 @@ body {
   /*text-align: center;*/
   color: #2d7b52;
   margin:15px;
+  clear : both;
 }
 
 .pageHeader{
@@ -446,6 +447,20 @@ header .mobile {
   padding-top: 85px;
 }
 
+/*Tinder voting in events.html*/
+.event-location{
+  margin : 0 auto;
+  width : 200px;
+}
+
+.event-location-picture{
+  height: 200px;
+  width : 200px;
+}
+
+.vote-location{
+
+}
 /*MEDIA QUERY*/
 @media only screen and (max-width : 720px) {
 
@@ -463,5 +478,8 @@ header .mobile {
   }
 
 }
+
+
+
 
 

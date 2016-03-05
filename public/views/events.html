@@ -12,20 +12,30 @@
 
 <div class="wholeEventsView">
   <!-- notSubmitted events -->
-  <div class='event' ng-repeat="event in data.notVotedEvents" ng-show="filters[0] === filters[3]">
+  <div class='event' ng-repeat="event in data.notVotedEvents track by $index" ng-show="filters[0] === filters[3]">
     <div class='eventTitle'>{{ event.name }}   <span class="badge">Needs your vote</span></div>
     <!-- Restaurant choices -->
-    <div class="well well-sm">
+
+    
+    <div class="well well-sm vote-location">
       <div class='eventSubtitle'>Select the restaurants you like: 18 out of 7
       </div>
-
-      <div class="col-xs-8">
-        <img class="" src="{{event.locations[event.currentIndex].location.image_url}}">
+      <div class="event-location container">
+        <img class="event-location-picture" src="{{event.locations[event.currentIndex].location.image_url}}">
+        <br/>
         <img class="" src="{{event.locations[event.currentIndex].location.rating_img_url_large}}">
+        <br/>
         <p>{{event.locations[event.currentIndex].location.review_count}} reviews</p>
       </div>
+    </div>
 
-
+    <div swing-stack swing-options="options">
+      <img swing-card
+        swing-on-throwoutleft="vote('left', event.currentIndex, $index, event, $event)"
+        swing-on-throwoutright="vote('right', event.currentIndex, $index, event, $event)"
+        ng-repeat="location in event.locations"
+        src="{{location.location.image_url}}"/ >
+    </div>
       <!-- <div class="row highlight" ng-repeat="rest in event.locations">
         <div class="col-xs-1">
           <button type="button" class="voteButton" ng-click='locationVote($index,$parent.$index, event)' toggle-class="clicked">
@@ -44,7 +54,6 @@
           <a target="_blank" href="http://maps.google.com/?q=?{{rest.location.location.display_address[0]}} {{rest.location.location.display_address[2]}}" style="display:block;">Find in Google Maps</a>
         </div>
       </div> -->
-    </div>
     <!-- Date and time choices -->
     <div class="well well-sm">
       <div class='eventSubtitle'>Select the dates you're free: </div>
