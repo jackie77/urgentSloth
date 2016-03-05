@@ -15,8 +15,8 @@ var userController = require('./../users/userController');
 // authentication.
 
 passport.use(new Strategy({
-  clientID: process.env.FACEBOOK_APP_ID || '1695145560770344',
-  clientSecret: process.env.FACEBOOK_SECRET || '6da4819c4f7124defe1035c55c6682bf',
+  clientID: process.env.FACEBOOK_APP_ID || '610127835807227',
+  clientSecret: process.env.FACEBOOK_SECRET || 'a53563712db216f49051299ee9fda4eb',
   callbackURL: '/login/facebook/return',
   profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends', 'emails']
 },
