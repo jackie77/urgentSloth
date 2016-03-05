@@ -10,13 +10,12 @@ var createUser = Q.nbind(User.create, User);
 
 //creates reusable transporter object using default SMTP transport
 var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'alexanderanthony813',
-            pass: 'cjshghqvdxnmpsxy'
-        }
-    });
-
+  service: 'gmail',
+  auth: {
+    user: 'alexanderanthony813',
+    pass: 'cjshghqvdxnmpsxy'
+  }
+});
 
 module.exports = {
 
@@ -133,13 +132,14 @@ module.exports = {
 
   notifyUser : function(req, res){
     var emailAddresses = req.body.emailAddresses.join(', ');
-    var messageText = ['Salutations Valuable Human!', '\n', 'You have been invited to ', req.body.eventName].join('');
+    var messageText = 'You have been invited to ' + req.body.eventName + ' by ' + req.body.creatorName + '.' + 
+      '\nPlease reply by clicking <a href="http://when-where.herokuapp.com/events">here</a>.';
 
     // setup e-mail data 
     var mailOptions = {
       from: 'When & Where <notifications@when&where.com>', // sender address 
       to: emailAddresses, // list of receivers 
-      subject: 'You are cordially invited...', // Subject line 
+      subject: 'You were invited to ' + req.body.eventName + '!', // Subject line 
       text: 'messageText', // plaintext body 
       html: messageText // html body 
     };
