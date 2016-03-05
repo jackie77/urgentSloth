@@ -512,28 +512,13 @@ header .mobile {
     /*display:none;  Button only visible on hover */
   }
 
-  .miniScreen {
-    padding: 0px;
-  }
-
-  .event {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-  }
-
   .container-fluid {
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;   
   }
   
-  .eventTitle {
-    margin: 5px;
-    padding: 5px;
-  }
-  
-  .eventSubtitle {
+  .event, .eventTitle, .eventSubtitle {
     margin: 5px;
     padding: 5px;
   }
